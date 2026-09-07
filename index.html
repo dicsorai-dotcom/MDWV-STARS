@@ -2,1095 +2,225 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MDWV STARS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MDWV STARS — Assistant</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background:#080808;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  overflow-x:hidden;
-}
-
-.background{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 20% 20%,#171717,transparent 35%),
-    radial-gradient(circle at 80% 70%,#111,transparent 35%),
-    #080808;
-}
-
-.orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(90px);
-  opacity:.35;
-  animation:float 12s infinite alternate ease-in-out;
-}
-
-.orb1{
-  width:350px;
-  height:350px;
-  background:#4c4cff;
-  left:-150px;
-  top:100px;
-}
-
-.orb2{
-  width:300px;
-  height:300px;
-  background:#ff287d;
-  right:-100px;
-  top:500px;
-  animation-delay:2s;
-}
-
-.orb3{
-  width:250px;
-  height:250px;
-  background:#8b3dff;
-  left:45%;
-  bottom:-100px;
-  animation-delay:4s;
-}
-
-@keyframes float{
-  from{transform:translate(0,0)}
-  to{transform:translate(80px,-50px)}
-}
-
-/* NAVBAR */
-
-.navbar{
-  height:80px;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5%;
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:100;
-  background:rgba(8,8,8,.72);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.logo-mark{
-  width:36px;
-  height:36px;
-  border:1px solid #fff;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-  font-size:20px;
-}
-
-.logo strong,.logo span{
-  display:block;
-}
-
-.logo strong{
-  font-size:15px;
-  letter-spacing:2px;
-}
-
-.logo span{
-  font-size:10px;
-  letter-spacing:4px;
-  opacity:.55;
-}
-
-nav{
-  display:flex;
-  gap:30px;
-}
-
-nav a,.mobile-menu a{
-  color:#fff;
-  text-decoration:none;
-  font-size:13px;
-  opacity:.65;
-  transition:.3s;
-}
-
-nav a:hover,.mobile-menu a:hover{
-  opacity:1;
-}
-
-.nav-search{
-  display:flex;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:30px;
-  overflow:hidden;
-  background:rgba(255,255,255,.04);
-}
-
-.nav-search input{
-  width:160px;
-  padding:10px 15px;
-  border:0;
-  outline:0;
-  color:#fff;
-  background:transparent;
-}
-
-.nav-search button{
-  border:0;
-  background:transparent;
-  color:#fff;
-  padding:0 15px;
-  cursor:pointer;
-}
-
-.menu-btn{
-  display:none;
-  border:0;
-  background:none;
-  color:#fff;
-  font-size:24px;
-}
-
-/* MOBILE MENU */
-
-.mobile-menu{
-  display:none;
-}
-
-.mobile-menu.open{
-  display:flex;
-}
-
-/* HERO */
-
-.hero{
-  min-height:100vh;
-  padding:160px 8% 100px;
-  display:grid;
-  grid-template-columns:1.3fr .7fr;
-  align-items:center;
-  gap:50px;
-}
-
-.eyebrow,.section small{
-  font-size:11px;
-  letter-spacing:3px;
-  opacity:.55;
-}
-
-.dot{
-  width:7px;
-  height:7px;
-  background:#fff;
-  display:inline-block;
-  border-radius:50%;
-  margin-right:8px;
-}
-
-.hero h1{
-  font-size:clamp(60px,9vw,130px);
-  line-height:.9;
-  letter-spacing:-6px;
-  margin:30px 0;
-}
-
-.hero h1 span{
-  opacity:.45;
-}
-
-.hero p{
-  max-width:550px;
-  line-height:1.7;
-  color:#aaa;
-  font-size:16px;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:15px;
-  margin-top:35px;
-}
-
-.primary-btn,.secondary-btn{
-  padding:15px 24px;
-  border-radius:40px;
-  text-decoration:none;
-  font-size:13px;
-  transition:.3s;
-}
-
-.primary-btn{
-  background:#fff;
-  color:#000;
-}
-
-.secondary-btn{
-  border:1px solid rgba(255,255,255,.2);
-  color:#fff;
-}
-
-.primary-btn:hover,.secondary-btn:hover{
-  transform:translateY(-4px);
-}
-
-.hero-right{
-  display:flex;
-  justify-content:center;
-}
-
-.hero-card{
-  width:300px;
-  height:400px;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:25px;
-  padding:30px;
-  background:linear-gradient(
-    145deg,
-    rgba(255,255,255,.08),
-    rgba(255,255,255,.015)
-  );
-  backdrop-filter:blur(20px);
-  transform:rotate(5deg);
-  box-shadow:0 30px 100px rgba(0,0,0,.5);
-}
-
-.hero-card-number{
-  font-size:12px;
-  opacity:.5;
-}
-
-.hero-card-title{
-  font-size:65px;
-  font-weight:900;
-  margin-top:100px;
-}
-
-.hero-card-line{
-  height:1px;
-  background:rgba(255,255,255,.25);
-  margin:20px 0;
-}
-
-.hero-card p{
-  font-size:13px;
-}
-
-/* MARQUEE */
-
-.marquee{
-  overflow:hidden;
-  border-top:1px solid rgba(255,255,255,.1);
-  border-bottom:1px solid rgba(255,255,255,.1);
-  padding:20px 0;
-}
-
-.marquee-track{
-  display:flex;
-  gap:35px;
-  width:max-content;
-  animation:marquee 20s linear infinite;
-}
-
-.marquee span{
-  font-size:13px;
-  letter-spacing:3px;
-}
-
-.marquee b{
-  opacity:.3;
-}
-
-@keyframes marquee{
-  to{transform:translateX(-50%)}
-}
-
-/* SECTION */
-
-.section{
-  padding:150px 8%;
-}
-
-.section-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:40px;
-  margin-bottom:70px;
-}
-
-.section-heading h2,.connect h2{
-  font-size:clamp(55px,8vw,100px);
-  line-height:.9;
-  letter-spacing:-4px;
-  margin-top:25px;
-}
-
-.section-heading h2 i,
-.connect h2 i,
-.membership h2 i{
-  font-weight:300;
-  color:#777;
-}
-
-.section-heading p{
-  max-width:350px;
-  color:#888;
-  line-height:1.7;
-}
-
-/* ARTISTS */
-
-.artists-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.artist-card{
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:22px;
-  overflow:hidden;
-  background:rgba(255,255,255,.025);
-  transition:.4s;
-}
-
-.artist-card:hover{
-  transform:translateY(-10px);
-  border-color:rgba(255,255,255,.3);
-}
-
-.artist-image{
-  height:330px;
-  display:grid;
-  place-items:center;
-  font-size:70px;
-  font-weight:900;
-  color:rgba(255,255,255,.3);
-}
-
-.image-one{
-  background:linear-gradient(145deg,#292929,#111);
-}
-
-.image-two{
-  background:linear-gradient(145deg,#18263d,#070b12);
-}
-
-.image-three{
-  background:linear-gradient(145deg,#ddd,#777);
-  color:rgba(0,0,0,.35);
-}
-
-.image-four{
-  background:linear-gradient(145deg,#4d1111,#120606);
-}
-
-.image-five{
-  background:linear-gradient(145deg,#632c56,#140812);
-}
-
-.artist-info{
-  padding:25px;
-}
-
-.artist-info small{
-  font-size:9px;
-  letter-spacing:2px;
-  color:#777;
-}
-
-.artist-info h3{
-  margin:10px 0;
-  font-size:25px;
-}
-
-.artist-info p{
-  color:#777;
-  font-size:12px;
-}
-
-.artist-info button{
-  margin-top:20px;
-  border:0;
-  background:none;
-  color:#fff;
-  cursor:pointer;
-}
-
-/* AI */
-
-.ai-preview{
-  margin:50px 8% 150px;
-  min-height:650px;
-  border-radius:35px;
-  border:1px solid rgba(255,255,255,.12);
-  position:relative;
-  overflow:hidden;
-  padding:70px;
-  background:
-    radial-gradient(
-      circle at 70% 50%,
-      rgba(100,80,255,.2),
-      transparent 35%
-    ),
-    rgba(255,255,255,.025);
-}
-
-.ai-content{
-  position:relative;
-  z-index:2;
-  max-width:650px;
-}
-
-.ai-content h2{
-  font-size:clamp(60px,8vw,110px);
-  line-height:.9;
-  letter-spacing:-5px;
-  margin:25px 0;
-}
-
-.ai-content h2 span{
-  color:#777;
-}
-
-.ai-content>p{
-  color:#999;
-  line-height:1.7;
-  max-width:480px;
-}
-
-/* AI CHAT */
-
-.ai-chat{
-  width:100%;
-  max-width:600px;
-  margin-top:30px;
-  padding:14px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;
-  background:rgba(5,5,8,.72);
-  backdrop-filter:blur(20px);
-  box-shadow:0 25px 80px rgba(0,0,0,.35);
-}
-
-.ai-status{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:5px 8px 12px;
-  font-size:10px;
-  letter-spacing:2px;
-  color:#777;
-}
-
-.ai-status-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#63ff9a;
-  box-shadow:0 0 12px #63ff9a;
-}
-
-.ai-messages{
-  height:230px;
-  overflow-y:auto;
-  padding:10px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  scrollbar-width:thin;
-}
-
-.ai-msg{
-  max-width:85%;
-  padding:12px 15px;
-  border-radius:15px;
-  font-size:13px;
-  line-height:1.55;
-  word-wrap:break-word;
-}
-
-.ai-msg.bot{
-  align-self:flex-start;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.08);
-  color:#ddd;
-}
-
-.ai-msg.user{
-  align-self:flex-end;
-  background:#fff;
-  color:#000;
-}
-
-.ai-input-row{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-
-.ai-input-row input{
-  flex:1;
-  min-width:0;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);
-  color:#fff;
-  outline:none;
-  border-radius:13px;
-  padding:13px 14px;
-  font-family:inherit;
-}
-
-.ai-input-row input::placeholder{
-  color:rgba(255,255,255,.4);
-}
-
-.ai-input-row button{
-  border:0;
-  border-radius:13px;
-  padding:0 20px;
-  cursor:pointer;
-  background:#fff;
-  color:#000;
-  font-weight:700;
-}
-
-.ai-input-row button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.ai-symbol{
-  position:absolute;
-  right:7%;
-  top:50%;
-  transform:translateY(-50%);
-  width:300px;
-  height:300px;
-  pointer-events:none;
-}
-
-.ai-ring{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:50%;
-  animation:spin 10s linear infinite;
-}
-
-.ring2{
-  inset:30px;
-  animation-direction:reverse;
-  animation-duration:7s;
-}
-
-.ai-core{
-  position:absolute;
-  inset:100px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(15px);
-  font-weight:900;
-  font-size:30px;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-/* AWARDS */
-
-.awards-list{
-  border-top:1px solid rgba(255,255,255,.15);
-}
-
-.award-row{
-  display:grid;
-  grid-template-columns:70px 1fr 100px;
-  align-items:center;
-  padding:30px 0;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  transition:.3s;
-}
-
-.award-row:hover{
-  padding-left:20px;
-}
-
-.award-row>span{
-  color:#555;
-}
-
-.award-row h3{
-  font-size:24px;
-  font-weight:400;
-}
-
-.award-row p{
-  color:#666;
-  margin-top:5px;
-  font-size:12px;
-}
-
-.award-row strong{
-  color:#666;
-  font-weight:400;
-}
-
-/* COVERS */
-
-.cover-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.cover-card{
-  min-height:330px;
-  padding:30px;
-  border-radius:25px;
-  border:1px solid rgba(255,255,255,.1);
-  display:flex;
-  flex-direction:column;
-  justify-content:end;
-  background:linear-gradient(145deg,#1d1d1d,#090909);
-  transition:.4s;
-}
-
-.cover-card:hover{
-  transform:scale(.98);
-}
-
-.cover-card>span{
-  margin-bottom:auto;
-  font-size:10px;
-  letter-spacing:2px;
-  opacity:.5;
-}
-
-.cover-card h3{
-  font-size:30px;
-}
-
-.cover-card p{
-  color:#666;
-  margin-top:8px;
-}
-
-/* MEMBERSHIP */
-
-.membership{
-  padding:150px 8%;
-  background:#f1f1ed;
-  color:#111;
-}
-
-.membership-inner{
-  display:grid;
-  grid-template-columns:1fr 400px;
-  gap:80px;
-  align-items:center;
-}
-
-.membership h2{
-  font-size:clamp(60px,8vw,110px);
-  line-height:.9;
-  letter-spacing:-5px;
-  margin:25px 0;
-}
-
-.membership p{
-  max-width:500px;
-  line-height:1.7;
-  color:#666;
-}
-
-.membership-card{
-  padding:35px;
-  background:#111;
-  color:#fff;
-  border-radius:25px;
-  min-height:380px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  box-shadow:0 30px 80px rgba(0,0,0,.2);
-}
-
-.membership-top{
-  display:flex;
-  justify-content:space-between;
-  font-size:10px;
-  letter-spacing:3px;
-}
-
-.membership-card h3{
-  font-size:30px;
-}
-
-.price small{
-  display:block;
-  color:#777;
-}
-
-.price strong{
-  display:block;
-  font-size:60px;
-}
-
-.membership-card button{
-  padding:15px;
-  border:0;
-  border-radius:30px;
-  cursor:pointer;
-}
-
-/* CONNECT */
-
-.connect{
-  text-align:center;
-}
-
-.connect p{
-  color:#777;
-  margin:30px auto;
-}
-
-.connect-buttons{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-}
-
-.connect-buttons button{
-  padding:15px 30px;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,.2);
-  color:#fff;
-  background:transparent;
-  cursor:pointer;
-}
-
-.connect-buttons button:hover{
-  background:#fff;
-  color:#000;
-}
-
-/* FOOTER */
-
-footer{
-  padding:60px 8% 30px;
-  border-top:1px solid rgba(255,255,255,.1);
-}
-
-.footer-logo strong,.footer-logo span{
-  display:block;
-}
-
-.footer-logo strong{
-  font-size:25px;
-  letter-spacing:4px;
-}
-
-.footer-logo span{
-  font-size:10px;
-  letter-spacing:7px;
-  color:#777;
-}
-
-footer p{
-  color:#555;
-  margin:20px 0 60px;
-}
-
-.footer-bottom{
-  display:flex;
-  justify-content:space-between;
-  color:#444;
-  font-size:11px;
-}
-
-/* POPUP */
-
-.popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:blur(12px);
-  display:none;
-  place-items:center;
-  z-index:200;
-}
-
-.popup.show{
-  display:grid;
-}
-
-.popup-box{
-  width:min(500px,90%);
-  padding:40px;
-  background:#151515;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:25px;
-  position:relative;
-}
-
-.popup-close{
-  position:absolute;
-  right:20px;
-  top:15px;
-  border:0;
-  background:none;
-  color:#fff;
-  font-size:28px;
-  cursor:pointer;
-}
-
-.popup-box h2{
-  font-size:35px;
-  margin-bottom:15px;
-}
-
-.popup-box p{
-  color:#888;
-  line-height:1.7;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;font-family:Inter,Arial,sans-serif;background:#070709;color:#fff}
+body{overflow:hidden}
+
+.background{position:fixed;inset:0;overflow:hidden;z-index:-2;background:#070709}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.25}
+.orb1{width:420px;height:420px;background:#7c3cff;top:-150px;left:-100px}
+.orb2{width:380px;height:380px;background:#ff315c;right:-120px;top:30%;opacity:.18}
+.orb3{width:420px;height:420px;background:#00d9ff;bottom:-220px;left:35%;opacity:.13}
+
+button{font:inherit;border:0;cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+.app{height:100vh;display:flex;position:relative}
+
+/* SIDEBAR */
+.sidebar{
+ width:280px;background:rgba(12,12,17,.88);
+ border-right:1px solid rgba(255,255,255,.08);
+ backdrop-filter:blur(25px);
+ padding:20px 16px;
+ display:flex;flex-direction:column;
+ transition:.3s ease;
+ z-index:20
+}
+.brand{
+ font-size:20px;font-weight:900;letter-spacing:3px;
+ padding:8px 10px 25px
+}
+.new-chat{
+ width:100%;padding:14px;border-radius:14px;
+ background:#fff;color:#08080a;font-weight:800;
+ margin-bottom:22px
+}
+.side-title{
+ font-size:10px;color:#777;text-transform:uppercase;
+ letter-spacing:2px;margin:18px 10px 10px
+}
+.side-btn{
+ width:100%;padding:12px 13px;border-radius:12px;
+ background:transparent;color:#bbb;text-align:left;
+ margin-bottom:4px
+}
+.side-btn:hover,.side-btn.active{
+ background:rgba(255,255,255,.08);color:#fff
+}
+.history{flex:1;overflow:auto}
+.history-item{
+ padding:11px;border-radius:10px;color:#888;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ font-size:13px;cursor:pointer
+}
+.history-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.side-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:15px}
+.home-btn{color:#999;padding:12px}
+
+/* MAIN */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+
+.topbar{
+ height:68px;border-bottom:1px solid rgba(255,255,255,.07);
+ display:flex;align-items:center;justify-content:space-between;
+ padding:0 25px;background:rgba(7,7,9,.55);
+ backdrop-filter:blur(20px)
+}
+.model-current{font-weight:800}
+.menu-mobile{
+ display:none;background:transparent;color:white;font-size:25px
+}
+.status{font-size:12px;color:#777}
+
+/* MODELS */
+.models{
+ padding:18px 24px 8px;
+ display:flex;gap:12px;overflow-x:auto
+}
+.model{
+ min-width:145px;border:1px solid rgba(255,255,255,.08);
+ background:rgba(255,255,255,.035);
+ border-radius:16px;padding:12px;
+ transition:.2s;cursor:pointer
+}
+.model:hover{transform:translateY(-2px);background:rgba(255,255,255,.07)}
+.model.selected{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.1)}
+.avatar{
+ width:38px;height:38px;border-radius:50%;
+ margin-bottom:9px;border:2px solid rgba(255,255,255,.35)
+}
+.male1{background:#f3f3f3}
+.male2{background:#8b1020}
+.male3{background:#5c2cff}
+.male4{background:#00a8b8}
+.female1{background:#ff9fca}
+.female2{background:#ff3e91}
+.female3{background:#e60036}
+.female4{background:#ffd42a}
+.model-name{font-size:12px;font-weight:800}
+.model-gender{font-size:10px;color:#777;margin-top:3px}
+
+/* CHAT */
+.chat{
+ flex:1;overflow-y:auto;padding:25px 8%;
+ scroll-behavior:smooth
+}
+.welcome{
+ min-height:100%;display:flex;align-items:center;
+ justify-content:center;text-align:center
+}
+.welcome-inner{max-width:700px}
+.welcome-logo{
+ width:72px;height:72px;border-radius:24px;
+ margin:0 auto 25px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,#fff,#aaa);
+ color:#08080a;font-weight:1000;font-size:25px
+}
+.welcome h1{font-size:42px;letter-spacing:-2px;margin-bottom:12px}
+.welcome p{color:#888;line-height:1.7}
+.prompts{
+ display:flex;gap:10px;flex-wrap:wrap;
+ justify-content:center;margin-top:28px
+}
+.prompt{
+ padding:11px 15px;border-radius:20px;
+ border:1px solid rgba(255,255,255,.1);
+ background:rgba(255,255,255,.04);color:#aaa
+}
+.prompt:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+.message{
+ display:flex;gap:14px;margin:20px 0;
+ animation:fade .2s ease
+}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.message.user{justify-content:flex-end}
+.bubble{
+ max-width:78%;padding:14px 17px;
+ border-radius:18px;line-height:1.65;font-size:14px;
+ white-space:pre-wrap
+}
+.message.ai .bubble{
+ background:rgba(255,255,255,.055);
+ border:1px solid rgba(255,255,255,.06)
+}
+.message.user .bubble{
+ background:#fff;color:#08080a
+}
+.mini-avatar{
+ width:32px;height:32px;border-radius:50%;flex:none
+}
+
+/* INPUT */
+.input-area{
+ padding:15px 8% 20px;
+ border-top:1px solid rgba(255,255,255,.07);
+ background:rgba(7,7,9,.72);
+ backdrop-filter:blur(20px)
+}
+.input-box{
+ max-width:900px;margin:auto;
+ display:flex;align-items:flex-end;gap:10px;
+ background:rgba(255,255,255,.06);
+ border:1px solid rgba(255,255,255,.1);
+ border-radius:20px;padding:9px
+}
+textarea{
+ flex:1;resize:none;outline:none;border:0;
+ background:transparent;color:#fff;
+ padding:10px;font-size:14px;min-height:42px;max-height:140px
+}
+.send{
+ width:43px;height:43px;border-radius:14px;
+ background:#fff;color:#000;font-weight:900
+}
+.input-note{text-align:center;color:#555;font-size:10px;margin-top:8px}
+
+/* MODE PANEL */
+.mode-panel{
+ position:fixed;left:280px;top:68px;bottom:0;width:300px;
+ background:rgba(10,10,14,.97);
+ border-right:1px solid rgba(255,255,255,.08);
+ padding:25px;z-index:15;
+ transform:translateX(-110%);
+ transition:.3s
+}
+.mode-panel.open{transform:translateX(0)}
+.mode-card{
+ padding:17px;border-radius:15px;
+ background:rgba(255,255,255,.045);
+ border:1px solid rgba(255,255,255,.07);
+ margin-bottom:10px;cursor:pointer
+}
+.mode-card:hover{background:rgba(255,255,255,.09)}
+.mode-card strong{display:block;margin-bottom:5px}
+.mode-card span{font-size:12px;color:#777}
 
 /* MOBILE */
-
 @media(max-width:900px){
-
-  nav{
-    display:none;
-  }
-
-  .menu-btn{
-    display:block;
-  }
-
-  .nav-search{
-    display:none;
-  }
-
-  .mobile-menu{
-    position:fixed;
-    top:80px;
-    left:0;
-    right:0;
-    z-index:90;
-    background:#0b0b0b;
-    padding:25px;
-    flex-direction:column;
-    gap:20px;
-    border-bottom:1px solid rgba(255,255,255,.1);
-  }
-
-  .hero{
-    grid-template-columns:1fr;
-  }
-
-  .hero-right{
-    display:none;
-  }
-
-  .artists-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .cover-grid{
-    grid-template-columns:1fr;
-  }
-
-  .membership-inner{
-    grid-template-columns:1fr;
-  }
-
-  .ai-symbol{
-    opacity:.3;
-    right:-80px;
-  }
+ .sidebar{
+  position:fixed;left:0;top:0;bottom:0;
+  transform:translateX(-105%)
+ }
+ .sidebar.open{transform:translateX(0)}
+ .menu-mobile{display:block}
+ .topbar{padding:0 15px}
+ .mode-panel{left:0;width:290px}
+ .chat{padding:20px 15px}
+ .input-area{padding:12px}
+ .welcome h1{font-size:31px}
+ .models{padding-left:15px}
 }
-
 @media(max-width:600px){
-
-  .navbar{
-    padding:0 20px;
-    height:70px;
-  }
-
-  .hero{
-    min-height:auto;
-    padding:125px 20px 80px;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:55px;
-  }
-
-  .hero-left{
-    width:100%;
-  }
-
-  .hero h1{
-    font-size:58px;
-    line-height:.88;
-    letter-spacing:-4px;
-  }
-
-  .hero-buttons{
-    flex-direction:column;
-    width:100%;
-  }
-
-  .primary-btn,
-  .secondary-btn{
-    width:100%;
-    text-align:center;
-  }
-
-  .hero-card{
-    width:230px;
-    height:300px;
-    align-self:center;
-  }
-
-  .section{
-    padding:85px 20px;
-  }
-
-  .section-heading{
-    display:block;
-    margin-bottom:40px;
-  }
-
-  .section-heading h2{
-    font-size:52px;
-    letter-spacing:-3px;
-  }
-
-  .section-heading p{
-    margin-top:20px;
-    font-size:14px;
-  }
-
-  .artists-grid{
-    grid-template-columns:1fr;
-    gap:18px;
-  }
-
-  .artist-image{
-    height:250px;
-  }
-
-  .ai-preview{
-    margin:40px 20px 85px;
-    min-height:auto;
-    padding:40px 25px;
-  }
-
-  .ai-content h2{
-    font-size:50px;
-    letter-spacing:-3px;
-  }
-
-  .ai-content>p{
-    font-size:14px;
-  }
-
-  .ai-symbol{
-    display:none;
-  }
-
-  .ai-chat{
-    padding:10px;
-  }
-
-  .ai-messages{
-    height:220px;
-  }
-
-  .ai-input-row button{
-    padding:0 15px;
-  }
-
-  .award-row{
-    grid-template-columns:35px 1fr 55px;
-    gap:12px;
-    padding:24px 0;
-  }
-
-  .award-row h3{
-    font-size:17px;
-  }
-
-  .cover-grid{
-    grid-template-columns:1fr;
-  }
-
-  .membership{
-    padding:85px 20px;
-  }
-
-  .membership h2{
-    font-size:50px;
-  }
-
-  .membership-inner{
-    gap:40px;
-  }
-
-  .membership-card{
-    padding:30px 25px;
-  }
-
-  .connect{
-    text-align:center;
-  }
-
-  .connect h2{
-    font-size:55px;
-  }
-
-  .connect-buttons{
-    flex-direction:column;
-    width:100%;
-  }
-
-  .connect-buttons button{
-    width:100%;
-  }
-
-  footer{
-    padding:30px 20px;
-  }
-
-  .footer-bottom{
-    flex-direction:column;
-    gap:10px;
-  }
+ .model{min-width:125px}
+ .bubble{max-width:88%}
+ .status{display:none}
 }
 </style>
 </head>
@@ -1098,879 +228,454 @@ footer p{
 <body>
 
 <div class="background">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
+ <div class="orb orb1"></div>
+ <div class="orb orb2"></div>
+ <div class="orb orb3"></div>
 </div>
 
-<header class="navbar">
+<div class="app">
 
-  <div class="logo">
-    <div class="logo-mark">✦</div>
-    <div>
-      <strong>MDWV</strong>
-      <span>STARS</span>
-    </div>
-  </div>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+ <div class="brand">MDWV STARS</div>
 
-  <nav>
-    <a href="#artists">Artists</a>
-    <a href="#assistant">AI Assistant</a>
-    <a href="#awards">Awards</a>
-    <a href="#membership">Membership</a>
-    <a href="#connect">Connect</a>
-  </nav>
+ <button class="new-chat" onclick="newChat()">＋ New Chat</button>
 
-  <div class="nav-search">
-    <input id="siteSearch" type="text" placeholder="Search artists...">
-    <button onclick="searchSite()">⌕</button>
-  </div>
+ <div class="side-title">Workspace</div>
 
-  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+ <button class="side-btn active" onclick="showHistory()">🕘 History</button>
+ <button class="side-btn" onclick="toggleModes()">🎭 Modes</button>
+ <button class="side-btn" onclick="animeMode()">📖 Anime Story for Practice</button>
 
-</header>
+ <div class="side-title">Recent Chats</div>
+ <div class="history" id="history"></div>
 
-<div id="mobileMenu" class="mobile-menu">
-  <a href="#artists" onclick="toggleMenu()">Artists</a>
-  <a href="#assistant" onclick="toggleMenu()">AI Assistant</a>
-  <a href="#awards" onclick="toggleMenu()">Awards</a>
-  <a href="#membership" onclick="toggleMenu()">Membership</a>
-  <a href="#connect" onclick="toggleMenu()">Connect</a>
+ <div class="side-bottom">
+  <button class="side-btn home-btn" onclick="location.href='index.html'">← MDWV STARS</button>
+ </div>
+</aside>
+
+<!-- MODE PANEL -->
+<div class="mode-panel" id="modePanel">
+ <h2 style="margin-bottom:20px">Modes</h2>
+
+ <div class="mode-card" onclick="normalMode()">
+  <strong>💬 Normal Chat</strong>
+  <span>Talk with your selected MDWV model.</span>
+ </div>
+
+ <div class="mode-card" onclick="animeMode()">
+  <strong>📖 Anime Story for Practice</strong>
+  <span>Practice English through an interactive story.</span>
+ </div>
+
+ <div class="mode-card" onclick="artistMode()">
+  <strong>🎙️ MDWV Stars</strong>
+  <span>Explore artists, voices and MDWV.</span>
+ </div>
 </div>
 
-<main>
+<!-- MAIN -->
+<main class="main">
 
-<section class="hero">
+ <header class="topbar">
+  <button class="menu-mobile" onclick="toggleSidebar()">☰</button>
+  <div class="model-current" id="currentModel">MDWV Vishuu</div>
+  <div class="status" id="status">Local AI • No login</div>
+ </header>
 
-  <div class="hero-left">
+ <!-- MODELS -->
+ <div class="models">
 
-    <div class="eyebrow">
-      <span class="dot"></span>
-      THE VOICE OF STARS
-    </div>
+  <div class="model selected" onclick="selectModel('MDWV Vishuu','male1',this)">
+   <div class="avatar male1"></div>
+   <div class="model-name">MDWV Vishuu</div>
+   <div class="model-gender">Male</div>
+  </div>
 
-    <h1>
-      Voices that<br>
-      <span>stay with you.</span>
-    </h1>
+  <div class="model" onclick="selectModel('MDWV Vishwas','male2',this)">
+   <div class="avatar male2"></div>
+   <div class="model-name">MDWV Vishwas</div>
+   <div class="model-gender">Male</div>
+  </div>
 
+  <div class="model" onclick="selectModel('MDWV Elvin','male3',this)">
+   <div class="avatar male3"></div>
+   <div class="model-name">MDWV Elvin</div>
+   <div class="model-gender">Male</div>
+  </div>
+
+  <div class="model" onclick="selectModel('MDWV Junxuan','male4',this)">
+   <div class="avatar male4"></div>
+   <div class="model-name">MDWV Junxuan</div>
+   <div class="model-gender">Male</div>
+  </div>
+
+  <div class="model" onclick="selectModel('MDWV Lara','female1',this)">
+   <div class="avatar female1"></div>
+   <div class="model-name">MDWV Lara</div>
+   <div class="model-gender">Female</div>
+  </div>
+
+  <div class="model" onclick="selectModel('MDWV Milly','female2',this)">
+   <div class="avatar female2"></div>
+   <div class="model-name">MDWV Milly</div>
+   <div class="model-gender">Female</div>
+  </div>
+
+  <div class="model" onclick="selectModel('MDWV Ramya','female3',this)">
+   <div class="avatar female3"></div>
+   <div class="model-name">MDWV Ramya</div>
+   <div class="model-gender">Female</div>
+  </div>
+
+  <div class="model" onclick="selectModel('MDWV Pinu','female4',this)">
+   <div class="avatar female4"></div>
+   <div class="model-name">MDWV Pinu</div>
+   <div class="model-gender">Female</div>
+  </div>
+
+ </div>
+
+ <!-- CHAT -->
+ <section class="chat" id="chat">
+
+  <div class="welcome" id="welcome">
+   <div class="welcome-inner">
+    <div class="welcome-logo">AI</div>
+    <h1>Welcome to MDWV Assistant</h1>
     <p>
-      Discover extraordinary voice artists,
-      iconic performances and the next generation
-      of voices shaping entertainment.
+     Your voice. Your story. Your world.<br>
+     Talk with MDWV models, explore voices and practice through stories.
     </p>
 
-    <div class="hero-buttons">
-      <a href="#artists" class="primary-btn">
-        Explore Artists →
-      </a>
-
-      <a href="#awards" class="secondary-btn">
-        View Awards
-      </a>
+    <div class="prompts">
+     <button class="prompt" onclick="quick('MDWV Stars ke baare mein batao')">Explore MDWV Stars</button>
+     <button class="prompt" onclick="quick('Mere liye ek anime story start karo')">Start Anime Story</button>
+     <button class="prompt" onclick="quick('MDWV mein register kahan karu?')">Registration</button>
+     <button class="prompt" onclick="quick('Mujhe English practice karni hai')">Practice English</button>
     </div>
-
+   </div>
   </div>
 
-  <div class="hero-right">
+ </section>
 
-    <div class="hero-card">
-      <div class="hero-card-number">01</div>
-      <div class="hero-card-title">VOICE</div>
-      <div class="hero-card-line"></div>
-      <p>
-        A platform built around
-        powerful voices.
-      </p>
-    </div>
-
+ <!-- INPUT -->
+ <div class="input-area">
+  <div class="input-box">
+   <textarea id="input" placeholder="Message MDWV Assistant..." rows="1"></textarea>
+   <button class="send" onclick="sendMessage()">↑</button>
   </div>
-
-</section>
-
-<div class="marquee">
-  <div class="marquee-track">
-    <span>VOICE ARTISTS</span>
-    <b>✦</b>
-    <span>VOICE OVERS</span>
-    <b>✦</b>
-    <span>DUBBING</span>
-    <b>✦</b>
-    <span>STORIES</span>
-    <b>✦</b>
-    <span>VOICE ARTISTS</span>
-    <b>✦</b>
-    <span>VOICE OVERS</span>
-    <b>✦</b>
-  </div>
-</div>
-
-<section id="artists" class="section">
-
-  <div class="section-heading">
-
-    <div>
-      <small>01 / ARTISTS</small>
-      <h2>Meet the<br><i>voices.</i></h2>
-    </div>
-
-    <p>
-      A selection of exceptional artists
-      whose voices have become part of
-      unforgettable stories.
-    </p>
-
-  </div>
-
-  <div class="artists-grid">
-
-    <article class="artist-card">
-      <div class="artist-image image-one">
-        <span>SM</span>
-      </div>
-      <div class="artist-info">
-        <small>VOICE ARTIST</small>
-        <h3>Sanket Mhatre</h3>
-        <p>Voice Over · Dubbing · Narration</p>
-        <button onclick="artistInfo('Sanket Mhatre')">
-          Discover →
-        </button>
-      </div>
-    </article>
-
-    <article class="artist-card">
-      <div class="artist-image image-two">
-        <span>LS</span>
-      </div>
-      <div class="artist-info">
-        <small>VOICE ARTIST</small>
-        <h3>Lohit Sharma</h3>
-        <p>Dubbing · Anime · Voice Over</p>
-        <button onclick="artistInfo('Lohit Sharma')">
-          Discover →
-        </button>
-      </div>
-    </article>
-
-    <article class="artist-card">
-      <div class="artist-image image-three">
-        <span>VV</span>
-      </div>
-      <div class="artist-info">
-        <small>NARRATOR</small>
-        <h3>Vijay Vikram Singh</h3>
-        <p>Narration · Voice Over · Speaking</p>
-        <button onclick="artistInfo('Vijay Vikram Singh')">
-          Discover →
-        </button>
-      </div>
-    </article>
-
-    <article class="artist-card">
-      <div class="artist-image image-four">
-        <span>SG</span>
-      </div>
-      <div class="artist-info">
-        <small>DUBBING ARTIST</small>
-        <h3>Sachin Gole</h3>
-        <p>Dubbing · Films · Voice Acting</p>
-        <button onclick="artistInfo('Sachin Gole')">
-          Discover →
-        </button>
-      </div>
-    </article>
-
-    <article class="artist-card">
-      <div class="artist-image image-five">
-        <span>SK</span>
-      </div>
-      <div class="artist-info">
-        <small>VOICE ARTIST</small>
-        <h3>Sonal Kaushal</h3>
-        <p>Animation · Dubbing · Voice Acting</p>
-        <button onclick="artistInfo('Sonal Kaushal')">
-          Discover →
-        </button>
-      </div>
-    </article>
-
-  </div>
-
-</section>
-
-<!-- MDWV AI ASSISTANT -->
-
-<section id="assistant" class="ai-preview">
-
-  <div class="ai-content">
-
-    <small>02 / MDWV AI ASSISTANT</small>
-
-    <h2>
-      Meet the<br>
-      <span>MDWV Assistant.</span>
-    </h2>
-
-    <p>
-      Talk with the MDWV STARS intelligent assistant.
-      Ask about artists, dubbing, narration, voice acting
-      and the world of MDWV STARS.
-    </p>
-
-    <div class="ai-chat">
-
-      <div class="ai-status">
-        <span class="ai-status-dot"></span>
-        MDWV ASSISTANT ONLINE
-      </div>
-
-      <div id="aiMessages" class="ai-messages">
-
-        <div class="ai-msg bot">
-          👋 Hi! मैं <b>MDWV Assistant</b> हूँ।<br>
-          MDWV STARS के बारे में कुछ भी पूछो।
-        </div>
-
-      </div>
-
-      <div class="ai-input-row">
-
-        <input
-          id="aiInput"
-          type="text"
-          placeholder="Ask MDWV Assistant..."
-          autocomplete="off"
-        >
-
-        <button id="aiSend" onclick="sendAIMessage()">
-          Send
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="ai-symbol">
-
-    <div class="ai-ring ring1"></div>
-    <div class="ai-ring ring2"></div>
-    <div class="ai-core">AI</div>
-
-  </div>
-
-</section>
-
-<section id="awards" class="section">
-
-  <div class="section-heading">
-
-    <div>
-      <small>03 / AWARDS</small>
-      <h2>Voice Over<br><i>Awards.</i></h2>
-    </div>
-
-    <p>
-      Celebrating voices that bring
-      characters, stories and emotions
-      to life.
-    </p>
-
-  </div>
-
-  <div class="awards-list">
-
-    <div class="award-row">
-      <span>01</span>
-      <div>
-        <h3>Best Voice Performance</h3>
-        <p>Outstanding vocal performance</p>
-      </div>
-      <strong>2026</strong>
-    </div>
-
-    <div class="award-row">
-      <span>02</span>
-      <div>
-        <h3>Best Dubbing Artist</h3>
-        <p>Exceptional dubbing performance</p>
-      </div>
-      <strong>2026</strong>
-    </div>
-
-    <div class="award-row">
-      <span>03</span>
-      <div>
-        <h3>Best Narration</h3>
-        <p>Voice that defined a story</p>
-      </div>
-      <strong>2026</strong>
-    </div>
-
-    <div class="award-row">
-      <span>04</span>
-      <div>
-        <h3>Rising Voice Star</h3>
-        <p>The next generation of talent</p>
-      </div>
-      <strong>2026</strong>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="covers section">
-
-  <div class="section-heading">
-
-    <div>
-      <small>04 / BEST COVERS</small>
-      <h2>Voices in<br><i>motion.</i></h2>
-    </div>
-
-  </div>
-
-  <div class="cover-grid">
-
-    <div class="cover-card">
-      <span>PLAY</span>
-      <h3>Iconic Characters</h3>
-      <p>Voice Cover Collection</p>
-    </div>
-
-    <div class="cover-card">
-      <span>PLAY</span>
-      <h3>Anime Voices</h3>
-      <p>Voice Cover Collection</p>
-    </div>
-
-    <div class="cover-card">
-      <span>PLAY</span>
-      <h3>Cinematic Voices</h3>
-      <p>Voice Cover Collection</p>
-    </div>
-
-  </div>
-
-</section>
-
-<section id="membership" class="membership">
-
-  <div class="membership-inner">
-
-    <div>
-
-      <small>05 / MEMBERSHIP</small>
-
-      <h2>
-        Become part of<br>
-        <i>MDWV STARS.</i>
-      </h2>
-
-      <p>
-        Unlock exclusive experiences,
-        artist updates and upcoming
-        platform features.
-      </p>
-
-    </div>
-
-    <div class="membership-card">
-
-      <div class="membership-top">
-        <span>MDWV</span>
-        <span>STARS</span>
-      </div>
-
-      <h3>STAR MEMBER</h3>
-
-      <div class="price">
-        <small>Starting from</small>
-        <strong>₹499</strong>
-      </div>
-
-      <button onclick="joinMembership()">
-        Join Membership →
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section id="connect" class="connect section">
-
-  <small>06 / CONNECT</small>
-
-  <h2>
-    Let's create<br>
-    <i>something memorable.</i>
-  </h2>
-
-  <p>
-    Stay connected with MDWV STARS
-    and discover what's coming next.
-  </p>
-
-  <div class="connect-buttons">
-
-    <button onclick="whatsapp()">
-      WhatsApp
-    </button>
-
-    <button onclick="socialMessage()">
-      Instagram
-    </button>
-
-  </div>
-
-</section>
+  <div class="input-note">MDWV Assistant • No visitor login required</div>
+ </div>
 
 </main>
-
-<footer>
-
-  <div class="footer-logo">
-    <strong>MDWV</strong>
-    <span>STARS</span>
-  </div>
-
-  <p>Voices. Stories. Stars.</p>
-
-  <div class="footer-bottom">
-    <span>© 2026 MDWV STARS</span>
-    <span>Built for voices that matter.</span>
-  </div>
-
-</footer>
-
-<div id="popup" class="popup">
-
-  <div class="popup-box">
-
-    <button class="popup-close" onclick="closePopup()">×</button>
-
-    <div id="popupContent"></div>
-
-  </div>
-
 </div>
 
-<!-- PUTER.JS AI -->
-<script src="https://js.puter.com/v2/"></script>
+<script type="module">
 
-<script>
+/*
+  MDWV ASSISTANT
+  Browser-local AI.
+  No Puter login.
+  No OpenAI API key.
+*/
 
-const popup = document.getElementById("popup");
-const popupContent = document.getElementById("popupContent");
+import { pipeline, env } from
+"https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.2";
 
-/* ---------------- MENU ---------------- */
+env.allowLocalModels = false;
 
-function toggleMenu(){
+let generator = null;
+let selectedModel = "MDWV Vishuu";
+let selectedClass = "male1";
+let conversation = [];
+let currentMode = "normal";
+let isGenerating = false;
 
-  const menu = document.getElementById("mobileMenu");
+const chat = document.getElementById("chat");
+const welcome = document.getElementById("welcome");
+const input = document.getElementById("input");
+const statusEl = document.getElementById("status");
 
-  menu.classList.toggle("open");
+const personalities = {
 
+ "MDWV Vishuu":
+ "You are MDWV Vishuu, a friendly male AI model from MDWV STARS. Be confident, helpful and concise.",
+
+ "MDWV Vishwas":
+ "You are MDWV Vishwas, a calm and intelligent male AI model from MDWV STARS. Give clear helpful answers.",
+
+ "MDWV Elvin":
+ "You are MDWV Elvin, a creative male AI model from MDWV STARS. Be energetic, creative and helpful.",
+
+ "MDWV Junxuan":
+ "You are MDWV Junxuan, a thoughtful male AI model from MDWV STARS. Explain things simply and naturally.",
+
+ "MDWV Lara":
+ "You are MDWV Lara, a warm and friendly female AI model from MDWV STARS. Be supportive and helpful.",
+
+ "MDWV Milly":
+ "You are MDWV Milly, a cheerful female AI model from MDWV STARS. Keep conversations lively and useful.",
+
+ "MDWV Ramya":
+ "You are MDWV Ramya, a confident female AI model from MDWV STARS. Give direct and useful answers.",
+
+ "MDWV Pinu":
+ "You are MDWV Pinu, a playful but helpful female AI model from MDWV STARS."
+};
+
+function addMessage(text,type){
+ welcome.style.display="none";
+
+ const row=document.createElement("div");
+ row.className="message "+type;
+
+ if(type==="ai"){
+   const av=document.createElement("div");
+   av.className="mini-avatar "+selectedClass;
+   row.appendChild(av);
+ }
+
+ const bubble=document.createElement("div");
+ bubble.className="bubble";
+ bubble.textContent=text;
+ row.appendChild(bubble);
+
+ chat.appendChild(row);
+ chat.scrollTop=chat.scrollHeight;
+
+ return bubble;
 }
 
-/* ---------------- SEARCH ---------------- */
-
-function searchSite(){
-
-  const input = document.getElementById("siteSearch");
-
-  const query = input.value.trim().toLowerCase();
-
-  if(!query){
-
-    showPopup(
-      "Search MDWV STARS",
-      "किसी artist या section का नाम लिखकर search करो."
-    );
-
-    return;
-  }
-
-  const artists = [
-    "sanket mhatre",
-    "lohit sharma",
-    "vijay vikram singh",
-    "sachin gole",
-    "sonal kaushal"
-  ];
-
-  const found = artists.find(
-    name => name.includes(query)
-  );
-
-  if(found){
-
-    showPopup(
-      "Artist Found",
-      `MDWV STARS में <b>${found}</b> मिला।`
-    );
-
-  }else{
-
-    showPopup(
-      "No Result",
-      `"${query}" के लिए अभी कोई result नहीं मिला।`
-    );
-
-  }
-
+function saveHistory(userText){
+ const data=JSON.parse(localStorage.getItem("mdwv_history")||"[]");
+ data.unshift({
+   title:userText.slice(0,45),
+   time:Date.now()
+ });
+ localStorage.setItem("mdwv_history",JSON.stringify(data.slice(0,20)));
+ renderHistory();
 }
 
-document.getElementById("siteSearch").addEventListener(
-  "keydown",
-  function(event){
+function renderHistory(){
+ const box=document.getElementById("history");
+ box.innerHTML="";
+ const data=JSON.parse(localStorage.getItem("mdwv_history")||"[]");
 
-    if(event.key === "Enter"){
-      searchSite();
-    }
-
-  }
-);
-
-/* ---------------- ARTISTS ---------------- */
-
-function artistInfo(name){
-
-  const descriptions = {
-
-    "Sanket Mhatre":
-    "Hindi voice artist known for voice-over, dubbing and character performances.",
-
-    "Lohit Sharma":
-    "Voice-over and dubbing artist with work across entertainment and anime.",
-
-    "Vijay Vikram Singh":
-    "Narrator, voice artist and speaker known for powerful narration.",
-
-    "Sachin Gole":
-    "Hindi dubbing and voice artist known for film and character voices.",
-
-    "Sonal Kaushal":
-    "Voice artist known for animation, dubbing and memorable Hindi characters."
-
-  };
-
-  showPopup(
-    name,
-    descriptions[name] || "MDWV STARS voice artist."
-  );
-
+ data.forEach(x=>{
+   const item=document.createElement("div");
+   item.className="history-item";
+   item.textContent=x.title;
+   item.onclick=()=>{
+     input.value=x.title;
+     input.focus();
+   };
+   box.appendChild(item);
+ });
 }
 
-/* ---------------- MDWV AI ---------------- */
+window.selectModel=function(name,cls,el){
+ selectedModel=name;
+ selectedClass=cls;
 
-const MDWV_SYSTEM = `
-You are MDWV Assistant, the official AI assistant of MDWV STARS.
+ document.querySelectorAll(".model").forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");
 
-MDWV STARS is a voice artist platform.
+ document.getElementById("currentModel").textContent=name;
+};
 
-Artists listed on the website:
+window.newChat=function(){
+ conversation=[];
+ chat.innerHTML="";
+ chat.appendChild(welcome);
+ welcome.style.display="flex";
+ input.value="";
+ currentMode="normal";
+ closeModes();
+};
 
-1. Sanket Mhatre — Voice Over, Dubbing, Narration
-2. Lohit Sharma — Dubbing, Anime, Voice Over
-3. Vijay Vikram Singh — Narration, Voice Over, Speaking
-4. Sachin Gole — Dubbing, Films, Voice Acting
-5. Sonal Kaushal — Animation, Dubbing, Voice Acting
+window.toggleSidebar=function(){
+ document.getElementById("sidebar").classList.toggle("open");
+};
 
-Website sections:
-- Voice Artists
-- Voice Over Awards
-- Best Voice Covers
-- Membership
-- Connect
+window.toggleModes=function(){
+ document.getElementById("modePanel").classList.toggle("open");
+};
 
-Your job is to help visitors understand MDWV STARS.
-
-Answer naturally and briefly.
-You can answer in Hindi, Hinglish or English depending on the visitor.
-Do not invent private information.
-If you don't know something, clearly say that you don't have that information.
-Do not claim to personally be any of the artists.
-You are MDWV Assistant.
-`;
-
-const aiInput = document.getElementById("aiInput");
-const aiMessages = document.getElementById("aiMessages");
-const aiSend = document.getElementById("aiSend");
-
-function addAIMessage(text,type){
-
-  const message = document.createElement("div");
-
-  message.className = "ai-msg " + type;
-
-  message.innerHTML = formatAIText(text);
-
-  aiMessages.appendChild(message);
-
-  aiMessages.scrollTop = aiMessages.scrollHeight;
-
-  return message;
-
+function closeModes(){
+ document.getElementById("modePanel").classList.remove("open");
 }
 
-function formatAIText(text){
+window.showHistory=function(){
+ closeModes();
+};
 
-  if(!text){
-    return "";
-  }
+window.normalMode=function(){
+ currentMode="normal";
+ closeModes();
+ addMessage("Normal Chat mode activated. Ab kis topic par baat karni hai?","ai");
+};
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/\n/g,"<br>")
-    .replace(/\*\*(.*?)\*\*/g,"<b>$1</b>");
+window.artistMode=function(){
+ currentMode="artist";
+ closeModes();
+ addMessage(
+ "MDWV Stars mein Sanket Mhatre, Lohit Sharma, Vijay Vikram Singh, Sachin Gole aur Sonal Kaushal jaise voice artists featured hain. Tum kis artist ke baare mein jaana chahte ho?",
+ "ai"
+ );
+};
 
+window.animeMode=function(){
+ currentMode="anime";
+ closeModes();
+
+ addMessage(
+ "📖 Anime Story Practice mode activated!\n\nMain ek simple anime-style story start karunga. Tum English mein reply karke practice kar sakte ho. Agar grammar mistake hogi to main gently correct karunga.",
+ "ai"
+ );
+
+ addMessage(
+ "Scene 1:\nYou arrive at a mysterious academy where every student has a special voice power.\n\nA student looks at you and asks:\n\"What is your name?\"",
+ "ai"
+ );
+};
+
+window.quick=function(text){
+ input.value=text;
+ sendMessage();
+};
+
+async function loadModel(){
+
+ if(generator) return generator;
+
+ statusEl.textContent="AI model loading…";
+
+ /*
+  Small browser model.
+  First visit can take time because the model is downloaded.
+ */
+ generator=await pipeline(
+   "text-generation",
+   "Xenova/Qwen1.5-0.5B-Chat",
+   {
+     dtype:"q4"
+   }
+ );
+
+ statusEl.textContent="Local AI • Ready";
+ return generator;
 }
 
-function setAILoading(loading){
+async function runAI(userText){
 
-  aiSend.disabled = loading;
-  aiInput.disabled = loading;
+ const pipe=await loadModel();
 
-  aiSend.textContent = loading ? "..." : "Send";
+ let system=personalities[selectedModel];
 
+ if(currentMode==="anime"){
+   system +=
+   " You are helping the user practice English through an anime story. Keep responses short and interactive.";
+ }
+
+ if(currentMode==="artist"){
+   system +=
+   " You can discuss MDWV STARS, its featured voice artists and website features.";
+ }
+
+ if(
+   userText.toLowerCase().includes("register") ||
+   userText.toLowerCase().includes("registration") ||
+   userText.toLowerCase().includes("रजिस्टर") ||
+   userText.toLowerCase().includes("रजिस्ट्रेशन")
+ ){
+   return "MDWV STARS mein registration/contact ke liye official MDWV WhatsApp contact button use karo. Website ke Connect section mein WhatsApp option available hai.";
+ }
+
+ const prompt =
+ system +
+ "\n\nConversation:\n" +
+ conversation.map(x=>x.role+": "+x.content).join("\n") +
+ "\nuser: "+userText+
+ "\nassistant:";
+
+ const result=await pipe(prompt,{
+   max_new_tokens:180,
+   temperature:.7,
+   do_sample:true,
+   return_full_text:false
+ });
+
+ let text="";
+
+ if(Array.isArray(result)){
+   text=result[0]?.generated_text || "";
+ }else{
+   text=result?.generated_text || "";
+ }
+
+ return text.trim() || "Sorry, mujhe is waqt answer generate nahi ho paaya.";
 }
 
-async function sendAIMessage(){
+window.sendMessage=async function(){
 
-  const message = aiInput.value.trim();
+ if(isGenerating) return;
 
-  if(!message){
-    return;
-  }
+ const text=input.value.trim();
+ if(!text) return;
 
-  addAIMessage(message,"user");
+ isGenerating=true;
+ input.value="";
 
-  aiInput.value = "";
+ addMessage(text,"user");
+ saveHistory(text);
 
-  setAILoading(true);
+ conversation.push({
+   role:"user",
+   content:text
+ });
 
-  const loadingMessage = addAIMessage(
-    "MDWV Assistant सोच रहा है...",
-    "bot"
-  );
+ const bubble=addMessage("Thinking…","ai");
+ statusEl.textContent="AI is thinking…";
 
-  try{
+ try{
 
-    const messages = [
+   const answer=await runAI(text);
 
-      {
-        role:"system",
-        content:MDWV_SYSTEM
-      },
+   bubble.textContent=answer;
 
-      {
-        role:"user",
-        content:message
-      }
+   conversation.push({
+     role:"assistant",
+     content:answer
+   });
 
-    ];
+ }catch(error){
 
-    const response = await puter.ai.chat(
-      messages,
-      {
-        model:"gpt-5.6-luna",
-        normalize:true
-      }
-    );
+   console.error(error);
 
-    let answer = "";
+   bubble.textContent=
+   "AI model load nahi ho paaya. Pehli baar model download hone mein thoda time lag sakta hai. Page refresh karke dobara try karo.";
 
-    if(
-      response &&
-      response.message &&
-      typeof response.message.content === "string"
-    ){
+   statusEl.textContent="AI loading error";
+ }
 
-      answer = response.message.content;
+ isGenerating=false;
+};
 
-    }
-    else if(typeof response === "string"){
-
-      answer = response;
-
-    }
-    else if(
-      response &&
-      response.message &&
-      Array.isArray(response.message.content)
-    ){
-
-      answer = response.message.content
-        .map(item => item.text || "")
-        .join("");
-
-    }
-
-    if(!answer){
-
-      answer =
-        "मुझे अभी जवाब नहीं मिला। कृपया दोबारा पूछो।";
-
-    }
-
-    loadingMessage.innerHTML = formatAIText(answer);
-
-  }
-  catch(error){
-
-    console.error("MDWV Assistant error:",error);
-
-    loadingMessage.innerHTML =
-      "⚠️ अभी AI connection में समस्या आ रही है। थोड़ी देर बाद फिर try करो।";
-
-  }
-  finally{
-
-    setAILoading(false);
-
-    aiInput.focus();
-
-  }
-
-}
-
-/* ENTER TO SEND */
-
-aiInput.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      sendAIMessage();
-
-    }
-
-  }
-);
-
-/* ---------------- MEMBERSHIP ---------------- */
-
-function joinMembership(){
-
-  showPopup(
-    "STAR MEMBER",
-    "Membership system अभी setup stage में है. जल्द ही यहाँ पूरा membership experience मिलेगा."
-  );
-
-}
-
-/* ---------------- SOCIAL ---------------- */
-
-function whatsapp(){
-
-  showPopup(
-    "WhatsApp",
-    "WhatsApp connection यहाँ बाद में add किया जाएगा."
-  );
-
-}
-
-function socialMessage(){
-
-  showPopup(
-    "Instagram",
-    "Social profile connection जल्द ही यहाँ add किया जाएगा."
-  );
-
-}
-
-/* ---------------- POPUP ---------------- */
-
-function showPopup(title,message){
-
-  popupContent.innerHTML = `
-    <h2>${title}</h2>
-    <p>${message}</p>
-  `;
-
-  popup.classList.add("show");
-
-}
-
-function closePopup(){
-
-  popup.classList.remove("show");
-
-}
-
-popup.addEventListener(
-  "click",
-  function(event){
-
-    if(event.target === popup){
-      closePopup();
-    }
-
-  }
-);
-
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Escape"){
-      closePopup();
-    }
-
-  }
-);
-
-/* ---------------- SCROLL ANIMATION ---------------- */
-
-const cards = document.querySelectorAll(
-  ".artist-card,.award-row,.cover-card,.membership-card"
-);
-
-const observer = new IntersectionObserver(
-  entries => {
-
-    entries.forEach(entry => {
-
-      if(entry.isIntersecting){
-
-        entry.target.style.opacity = "1";
-
-        entry.target.style.transform =
-          "translateY(0)";
-
-      }
-
-    });
-
-  },
-  {
-    threshold:.1
-  }
-);
-
-cards.forEach(card => {
-
-  card.style.opacity = "0";
-
-  card.style.transform =
-    "translateY(30px)";
-
-  card.style.transition =
-    "opacity .7s ease, transform .7s ease";
-
-  observer.observe(card);
-
+input.addEventListener("keydown",e=>{
+ if(e.key==="Enter" && !e.shiftKey){
+   e.preventDefault();
+   sendMessage();
+ }
 });
+
+input.addEventListener("input",()=>{
+ input.style.height="auto";
+ input.style.height=Math.min(input.scrollHeight,140)+"px";
+});
+
+renderHistory();
 
 </script>
 
