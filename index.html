@@ -442,12 +442,12 @@ nav a:hover,.mobile-menu a:hover{
 
 .ai-preview{
   margin:50px 8% 150px;
-  min-height:600px;
+  min-height:650px;
   border-radius:35px;
   border:1px solid rgba(255,255,255,.12);
   position:relative;
   overflow:hidden;
-  padding:80px;
+  padding:70px;
   background:
     radial-gradient(
       circle at 70% 50%,
@@ -460,7 +460,7 @@ nav a:hover,.mobile-menu a:hover{
 .ai-content{
   position:relative;
   z-index:2;
-  max-width:600px;
+  max-width:650px;
 }
 
 .ai-content h2{
@@ -474,28 +474,121 @@ nav a:hover,.mobile-menu a:hover{
   color:#777;
 }
 
-.ai-content p{
+.ai-content>p{
   color:#999;
   line-height:1.7;
   max-width:480px;
 }
 
-.ai-content button{
+/* AI CHAT */
+
+.ai-chat{
+  width:100%;
+  max-width:600px;
   margin-top:30px;
-  padding:15px 25px;
-  border-radius:30px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+  background:rgba(5,5,8,.72);
+  backdrop-filter:blur(20px);
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
+}
+
+.ai-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 8px 12px;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#777;
+}
+
+.ai-status-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#63ff9a;
+  box-shadow:0 0 12px #63ff9a;
+}
+
+.ai-messages{
+  height:230px;
+  overflow-y:auto;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  scrollbar-width:thin;
+}
+
+.ai-msg{
+  max-width:85%;
+  padding:12px 15px;
+  border-radius:15px;
+  font-size:13px;
+  line-height:1.55;
+  word-wrap:break-word;
+}
+
+.ai-msg.bot{
+  align-self:flex-start;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
+  color:#ddd;
+}
+
+.ai-msg.user{
+  align-self:flex-end;
   background:#fff;
+  color:#000;
+}
+
+.ai-input-row{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.ai-input-row input{
+  flex:1;
+  min-width:0;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  outline:none;
+  border-radius:13px;
+  padding:13px 14px;
+  font-family:inherit;
+}
+
+.ai-input-row input::placeholder{
+  color:rgba(255,255,255,.4);
+}
+
+.ai-input-row button{
   border:0;
+  border-radius:13px;
+  padding:0 20px;
   cursor:pointer;
+  background:#fff;
+  color:#000;
+  font-weight:700;
+}
+
+.ai-input-row button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
 .ai-symbol{
   position:absolute;
-  right:10%;
+  right:7%;
   top:50%;
   transform:translateY(-50%);
   width:300px;
   height:300px;
+  pointer-events:none;
 }
 
 .ai-ring{
@@ -840,20 +933,12 @@ footer p{
     right:-80px;
   }
 }
+
 @media(max-width:600px){
 
   .navbar{
     padding:0 20px;
     height:70px;
-  }
-
-  .logo{
-    font-size:17px;
-    letter-spacing:2px;
-  }
-
-  .nav-links{
-    top:70px;
   }
 
   .hero{
@@ -869,20 +954,10 @@ footer p{
     width:100%;
   }
 
-  .eyebrow{
-    font-size:9px;
-    letter-spacing:3px;
-  }
-
   .hero h1{
     font-size:58px;
     line-height:.88;
     letter-spacing:-4px;
-  }
-
-  .hero-sub{
-    font-size:16px;
-    margin-top:25px;
   }
 
   .hero-buttons{
@@ -890,7 +965,8 @@ footer p{
     width:100%;
   }
 
-  .btn{
+  .primary-btn,
+  .secondary-btn{
     width:100%;
     text-align:center;
   }
@@ -901,25 +977,21 @@ footer p{
     align-self:center;
   }
 
-  .voice-card strong{
-    font-size:60px;
-  }
-
-  section{
+  .section{
     padding:85px 20px;
   }
 
-  .section-top{
+  .section-heading{
     display:block;
     margin-bottom:40px;
   }
 
-  .section-title{
+  .section-heading h2{
     font-size:52px;
     letter-spacing:-3px;
   }
 
-  .section-desc{
+  .section-heading p{
     margin-top:20px;
     font-size:14px;
   }
@@ -929,39 +1001,39 @@ footer p{
     gap:18px;
   }
 
-  .artist-card{
-    min-height:390px;
-  }
-
-  .artist-img{
+  .artist-image{
     height:250px;
   }
 
-  .artist-info h3{
-    font-size:23px;
-  }
-
-  .ai-box{
+  .ai-preview{
+    margin:40px 20px 85px;
     min-height:auto;
     padding:40px 25px;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:50px;
   }
 
-  .ai-text h2{
+  .ai-content h2{
     font-size:50px;
     letter-spacing:-3px;
   }
 
-  .ai-text p{
+  .ai-content>p{
     font-size:14px;
   }
 
-  .ai-visual{
-    width:220px;
+  .ai-symbol{
+    display:none;
+  }
+
+  .ai-chat{
+    padding:10px;
+  }
+
+  .ai-messages{
     height:220px;
-    align-self:center;
+  }
+
+  .ai-input-row button{
+    padding:0 15px;
   }
 
   .award-row{
@@ -970,50 +1042,35 @@ footer p{
     padding:24px 0;
   }
 
-  .award-name{
+  .award-row h3{
     font-size:17px;
   }
 
-  .award-year{
-    font-size:11px;
-  }
-
-  .covers-grid{
+  .cover-grid{
     grid-template-columns:1fr;
-  }
-
-  .cover{
-    height:220px;
   }
 
   .membership{
     padding:85px 20px;
   }
 
-  .membership .section-title{
+  .membership h2{
     font-size:50px;
   }
 
-  .member-card{
-    padding:35px 25px;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:30px;
+  .membership-inner{
+    gap:40px;
   }
 
-  .member-card h3{
-    font-size:30px;
-  }
-
-  .price{
-    font-size:52px;
+  .membership-card{
+    padding:30px 25px;
   }
 
   .connect{
     text-align:center;
   }
 
-  .connect .section-title{
+  .connect h2{
     font-size:55px;
   }
 
@@ -1022,14 +1079,17 @@ footer p{
     width:100%;
   }
 
-  .connect-buttons .btn{
+  .connect-buttons button{
     width:100%;
   }
 
   footer{
     padding:30px 20px;
+  }
+
+  .footer-bottom{
     flex-direction:column;
-    gap:12px;
+    gap:10px;
   }
 }
 </style>
@@ -1055,6 +1115,7 @@ footer p{
 
   <nav>
     <a href="#artists">Artists</a>
+    <a href="#assistant">AI Assistant</a>
     <a href="#awards">Awards</a>
     <a href="#membership">Membership</a>
     <a href="#connect">Connect</a>
@@ -1071,6 +1132,7 @@ footer p{
 
 <div id="mobileMenu" class="mobile-menu">
   <a href="#artists" onclick="toggleMenu()">Artists</a>
+  <a href="#assistant" onclick="toggleMenu()">AI Assistant</a>
   <a href="#awards" onclick="toggleMenu()">Awards</a>
   <a href="#membership" onclick="toggleMenu()">Membership</a>
   <a href="#connect" onclick="toggleMenu()">Connect</a>
@@ -1163,104 +1225,86 @@ footer p{
   <div class="artists-grid">
 
     <article class="artist-card">
-
       <div class="artist-image image-one">
         <span>SM</span>
       </div>
-
       <div class="artist-info">
         <small>VOICE ARTIST</small>
         <h3>Sanket Mhatre</h3>
         <p>Voice Over · Dubbing · Narration</p>
-
         <button onclick="artistInfo('Sanket Mhatre')">
           Discover →
         </button>
       </div>
-
     </article>
 
     <article class="artist-card">
-
       <div class="artist-image image-two">
         <span>LS</span>
       </div>
-
       <div class="artist-info">
         <small>VOICE ARTIST</small>
         <h3>Lohit Sharma</h3>
         <p>Dubbing · Anime · Voice Over</p>
-
         <button onclick="artistInfo('Lohit Sharma')">
           Discover →
         </button>
       </div>
-
     </article>
 
     <article class="artist-card">
-
       <div class="artist-image image-three">
         <span>VV</span>
       </div>
-
       <div class="artist-info">
         <small>NARRATOR</small>
         <h3>Vijay Vikram Singh</h3>
         <p>Narration · Voice Over · Speaking</p>
-
         <button onclick="artistInfo('Vijay Vikram Singh')">
           Discover →
         </button>
       </div>
-
     </article>
 
     <article class="artist-card">
-
       <div class="artist-image image-four">
         <span>SG</span>
       </div>
-
       <div class="artist-info">
         <small>DUBBING ARTIST</small>
         <h3>Sachin Gole</h3>
         <p>Dubbing · Films · Voice Acting</p>
-
         <button onclick="artistInfo('Sachin Gole')">
           Discover →
         </button>
       </div>
-
     </article>
 
     <article class="artist-card">
-
       <div class="artist-image image-five">
         <span>SK</span>
       </div>
-
       <div class="artist-info">
         <small>VOICE ARTIST</small>
         <h3>Sonal Kaushal</h3>
         <p>Animation · Dubbing · Voice Acting</p>
-
         <button onclick="artistInfo('Sonal Kaushal')">
           Discover →
         </button>
       </div>
-
     </article>
 
   </div>
 
 </section>
 
-<section class="ai-preview">
+<!-- MDWV AI ASSISTANT -->
+
+<section id="assistant" class="ai-preview">
 
   <div class="ai-content">
 
-    <small>02 / COMING SOON</small>
+    <small>02 / MDWV AI ASSISTANT</small>
 
     <h2>
       Meet the<br>
@@ -1268,15 +1312,43 @@ footer p{
     </h2>
 
     <p>
-      A new way to experience MDWV STARS.
-      Talk, discover and explore the world
-      of voice artists through an intelligent
-      digital assistant.
+      Talk with the MDWV STARS intelligent assistant.
+      Ask about artists, dubbing, narration, voice acting
+      and the world of MDWV STARS.
     </p>
 
-    <button onclick="comingSoon()">
-      Coming Soon
-    </button>
+    <div class="ai-chat">
+
+      <div class="ai-status">
+        <span class="ai-status-dot"></span>
+        MDWV ASSISTANT ONLINE
+      </div>
+
+      <div id="aiMessages" class="ai-messages">
+
+        <div class="ai-msg bot">
+          👋 Hi! मैं <b>MDWV Assistant</b> हूँ।<br>
+          MDWV STARS के बारे में कुछ भी पूछो।
+        </div>
+
+      </div>
+
+      <div class="ai-input-row">
+
+        <input
+          id="aiInput"
+          type="text"
+          placeholder="Ask MDWV Assistant..."
+          autocomplete="off"
+        >
+
+        <button id="aiSend" onclick="sendAIMessage()">
+          Send
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -1290,7 +1362,7 @@ footer p{
 
 </section>
 
-<section id="awards" class="section awards-section">
+<section id="awards" class="section">
 
   <div class="section-heading">
 
@@ -1487,23 +1559,31 @@ footer p{
 
 </div>
 
+<!-- PUTER.JS AI -->
+<script src="https://js.puter.com/v2/"></script>
+
 <script>
 
-const popup=document.getElementById("popup");
-const popupContent=document.getElementById("popupContent");
+const popup = document.getElementById("popup");
+const popupContent = document.getElementById("popupContent");
+
+/* ---------------- MENU ---------------- */
 
 function toggleMenu(){
 
-  const menu=document.getElementById("mobileMenu");
+  const menu = document.getElementById("mobileMenu");
 
   menu.classList.toggle("open");
 
 }
 
+/* ---------------- SEARCH ---------------- */
+
 function searchSite(){
 
-  const input=document.getElementById("siteSearch");
-  const query=input.value.trim().toLowerCase();
+  const input = document.getElementById("siteSearch");
+
+  const query = input.value.trim().toLowerCase();
 
   if(!query){
 
@@ -1515,7 +1595,7 @@ function searchSite(){
     return;
   }
 
-  const artists=[
+  const artists = [
     "sanket mhatre",
     "lohit sharma",
     "vijay vikram singh",
@@ -1523,7 +1603,9 @@ function searchSite(){
     "sonal kaushal"
   ];
 
-  const found=artists.find(name=>name.includes(query));
+  const found = artists.find(
+    name => name.includes(query)
+  );
 
   if(found){
 
@@ -1547,16 +1629,18 @@ document.getElementById("siteSearch").addEventListener(
   "keydown",
   function(event){
 
-    if(event.key==="Enter"){
+    if(event.key === "Enter"){
       searchSite();
     }
 
   }
 );
 
+/* ---------------- ARTISTS ---------------- */
+
 function artistInfo(name){
 
-  const descriptions={
+  const descriptions = {
 
     "Sanket Mhatre":
     "Hindi voice artist known for voice-over, dubbing and character performances.",
@@ -1582,14 +1666,199 @@ function artistInfo(name){
 
 }
 
-function comingSoon(){
+/* ---------------- MDWV AI ---------------- */
 
-  showPopup(
-    "MDWV Assistant",
-    "MDWV Assistant जल्द ही यहाँ available होगा. अभी यह section preview mode में है."
-  );
+const MDWV_SYSTEM = `
+You are MDWV Assistant, the official AI assistant of MDWV STARS.
+
+MDWV STARS is a voice artist platform.
+
+Artists listed on the website:
+
+1. Sanket Mhatre — Voice Over, Dubbing, Narration
+2. Lohit Sharma — Dubbing, Anime, Voice Over
+3. Vijay Vikram Singh — Narration, Voice Over, Speaking
+4. Sachin Gole — Dubbing, Films, Voice Acting
+5. Sonal Kaushal — Animation, Dubbing, Voice Acting
+
+Website sections:
+- Voice Artists
+- Voice Over Awards
+- Best Voice Covers
+- Membership
+- Connect
+
+Your job is to help visitors understand MDWV STARS.
+
+Answer naturally and briefly.
+You can answer in Hindi, Hinglish or English depending on the visitor.
+Do not invent private information.
+If you don't know something, clearly say that you don't have that information.
+Do not claim to personally be any of the artists.
+You are MDWV Assistant.
+`;
+
+const aiInput = document.getElementById("aiInput");
+const aiMessages = document.getElementById("aiMessages");
+const aiSend = document.getElementById("aiSend");
+
+function addAIMessage(text,type){
+
+  const message = document.createElement("div");
+
+  message.className = "ai-msg " + type;
+
+  message.innerHTML = formatAIText(text);
+
+  aiMessages.appendChild(message);
+
+  aiMessages.scrollTop = aiMessages.scrollHeight;
+
+  return message;
 
 }
+
+function formatAIText(text){
+
+  if(!text){
+    return "";
+  }
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/\n/g,"<br>")
+    .replace(/\*\*(.*?)\*\*/g,"<b>$1</b>");
+
+}
+
+function setAILoading(loading){
+
+  aiSend.disabled = loading;
+  aiInput.disabled = loading;
+
+  aiSend.textContent = loading ? "..." : "Send";
+
+}
+
+async function sendAIMessage(){
+
+  const message = aiInput.value.trim();
+
+  if(!message){
+    return;
+  }
+
+  addAIMessage(message,"user");
+
+  aiInput.value = "";
+
+  setAILoading(true);
+
+  const loadingMessage = addAIMessage(
+    "MDWV Assistant सोच रहा है...",
+    "bot"
+  );
+
+  try{
+
+    const messages = [
+
+      {
+        role:"system",
+        content:MDWV_SYSTEM
+      },
+
+      {
+        role:"user",
+        content:message
+      }
+
+    ];
+
+    const response = await puter.ai.chat(
+      messages,
+      {
+        model:"gpt-5.6-luna",
+        normalize:true
+      }
+    );
+
+    let answer = "";
+
+    if(
+      response &&
+      response.message &&
+      typeof response.message.content === "string"
+    ){
+
+      answer = response.message.content;
+
+    }
+    else if(typeof response === "string"){
+
+      answer = response;
+
+    }
+    else if(
+      response &&
+      response.message &&
+      Array.isArray(response.message.content)
+    ){
+
+      answer = response.message.content
+        .map(item => item.text || "")
+        .join("");
+
+    }
+
+    if(!answer){
+
+      answer =
+        "मुझे अभी जवाब नहीं मिला। कृपया दोबारा पूछो।";
+
+    }
+
+    loadingMessage.innerHTML = formatAIText(answer);
+
+  }
+  catch(error){
+
+    console.error("MDWV Assistant error:",error);
+
+    loadingMessage.innerHTML =
+      "⚠️ अभी AI connection में समस्या आ रही है। थोड़ी देर बाद फिर try करो।";
+
+  }
+  finally{
+
+    setAILoading(false);
+
+    aiInput.focus();
+
+  }
+
+}
+
+/* ENTER TO SEND */
+
+aiInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      event.preventDefault();
+
+      sendAIMessage();
+
+    }
+
+  }
+);
+
+/* ---------------- MEMBERSHIP ---------------- */
 
 function joinMembership(){
 
@@ -1599,6 +1868,8 @@ function joinMembership(){
   );
 
 }
+
+/* ---------------- SOCIAL ---------------- */
 
 function whatsapp(){
 
@@ -1618,9 +1889,11 @@ function socialMessage(){
 
 }
 
+/* ---------------- POPUP ---------------- */
+
 function showPopup(title,message){
 
-  popupContent.innerHTML=`
+  popupContent.innerHTML = `
     <h2>${title}</h2>
     <p>${message}</p>
   `;
@@ -1635,49 +1908,64 @@ function closePopup(){
 
 }
 
-popup.addEventListener("click",function(event){
+popup.addEventListener(
+  "click",
+  function(event){
 
-  if(event.target===popup){
-    closePopup();
+    if(event.target === popup){
+      closePopup();
+    }
+
   }
+);
 
-});
+document.addEventListener(
+  "keydown",
+  function(event){
 
-document.addEventListener("keydown",function(event){
+    if(event.key === "Escape"){
+      closePopup();
+    }
 
-  if(event.key==="Escape"){
-    closePopup();
   }
+);
 
-});
+/* ---------------- SCROLL ANIMATION ---------------- */
 
-const cards=document.querySelectorAll(
+const cards = document.querySelectorAll(
   ".artist-card,.award-row,.cover-card,.membership-card"
 );
 
-const observer=new IntersectionObserver(
-  entries=>{
+const observer = new IntersectionObserver(
+  entries => {
 
-    entries.forEach(entry=>{
+    entries.forEach(entry => {
 
       if(entry.isIntersecting){
 
-        entry.target.style.opacity="1";
-        entry.target.style.transform="translateY(0)";
+        entry.target.style.opacity = "1";
+
+        entry.target.style.transform =
+          "translateY(0)";
 
       }
 
     });
 
   },
-  {threshold:.1}
+  {
+    threshold:.1
+  }
 );
 
-cards.forEach(card=>{
+cards.forEach(card => {
 
-  card.style.opacity="0";
-  card.style.transform="translateY(30px)";
-  card.style.transition=
+  card.style.opacity = "0";
+
+  card.style.transform =
+    "translateY(30px)";
+
+  card.style.transition =
     "opacity .7s ease, transform .7s ease";
 
   observer.observe(card);
