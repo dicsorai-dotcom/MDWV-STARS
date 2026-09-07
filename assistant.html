@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDWV Assistant</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#050505;
+  color:#fff;
+  height:100vh;
+  overflow:hidden;
+}
+
+.app{
+  display:flex;
+  width:100%;
+  height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:280px;
+  background:#0b0b0d;
+  border-right:1px solid #222;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  transition:.3s;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:25px;
+}
+
+.new-chat{
+  width:100%;
+  padding:14px;
+  border:1px solid #333;
+  border-radius:12px;
+  background:#151518;
+  color:#fff;
+  cursor:pointer;
+  font-size:15px;
+  margin-bottom:25px;
+}
+
+.new-chat:hover{
+  background:#202024;
+}
+
+.side-title{
+  color:#777;
+  font-size:12px;
+  letter-spacing:2px;
+  margin:15px 0 10px;
+}
+
+.side-item{
+  padding:12px;
+  border-radius:10px;
+  cursor:pointer;
+  color:#ccc;
+  margin-bottom:5px;
+}
+
+.side-item:hover{
+  background:#17171a;
+  color:#fff;
+}
+
+.models{
+  margin-top:10px;
+  overflow:auto;
+}
+
+.model{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-bottom:4px;
+}
+
+.model:hover{
+  background:#17171a;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.vishuu{background:#eee;}
+.vishwas{background:#8b0000;}
+.elvin{background:#8b5cf6;}
+.junxuan{background:#00d9d9;}
+.lara{background:#ffb6c9;}
+.milly{background:#ff1493;}
+.ramya{background:#e00000;}
+.pinu{background:#ffd21f;}
+
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(100,70,255,.12),transparent 30%),
+    radial-gradient(circle at 20% 80%,rgba(255,0,100,.08),transparent 30%),
+    #050505;
+}
+
+.topbar{
+  height:70px;
+  border-bottom:1px solid #222;
+  display:flex;
+  align-items:center;
+  padding:0 25px;
+  justify-content:space-between;
+}
+
+.menu{
+  display:none;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.selected{
+  font-weight:bold;
+}
+
+.chat{
+  flex:1;
+  overflow-y:auto;
+  padding:40px 20px 130px;
+}
+
+.welcome{
+  max-width:800px;
+  margin:10vh auto 0;
+  text-align:center;
+}
+
+.ai-logo{
+  width:70px;
+  height:70px;
+  border:1px solid #555;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 25px;
+  font-size:25px;
+  background:linear-gradient(135deg,#161616,#252525);
+  box-shadow:0 0 40px rgba(255,255,255,.08);
+}
+
+.welcome h1{
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+.welcome p{
+  color:#999;
+  font-size:17px;
+  margin-bottom:35px;
+}
+
+.prompts{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.prompt{
+  border:1px solid #292929;
+  background:#101012;
+  padding:18px;
+  border-radius:14px;
+  color:#ddd;
+  cursor:pointer;
+  text-align:left;
+}
+
+.prompt:hover{
+  background:#18181b;
+  border-color:#444;
+}
+
+/* MESSAGES */
+.message{
+  max-width:850px;
+  margin:0 auto 22px;
+  display:flex;
+  gap:12px;
+}
+
+.avatar{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#171717;
+  flex-shrink:0;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.bubble{
+  background:#111113;
+  border:1px solid #242424;
+  padding:13px 16px;
+  border-radius:14px;
+  line-height:1.6;
+  max-width:75%;
+}
+
+/* INPUT */
+.input-area{
+  position:fixed;
+  bottom:0;
+  left:280px;
+  right:0;
+  padding:18px 25px 22px;
+  background:linear-gradient(transparent,#050505 30%);
+}
+
+.input-box{
+  max-width:850px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#111113;
+  border:1px solid #303030;
+  border-radius:17px;
+  padding:8px;
+}
+
+.input-box textarea{
+  flex:1;
+  resize:none;
+  height:45px;
+  max-height:130px;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#fff;
+  padding:12px;
+  font-size:15px;
+}
+
+.send{
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:12px;
+  background:#fff;
+  color:#000;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.send:hover{
+  transform:scale(1.03);
+}
+
+/* MODEL PANEL */
+.model-panel{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
+
+.panel{
+  width:min(700px,92%);
+  max-height:85vh;
+  overflow:auto;
+  background:#0d0d0f;
+  border:1px solid #292929;
+  border-radius:22px;
+  padding:25px;
+}
+
+.panel h2{
+  margin-bottom:20px;
+}
+
+.model-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.model-card{
+  padding:18px;
+  border:1px solid #292929;
+  border-radius:15px;
+  background:#121214;
+  cursor:pointer;
+}
+
+.model-card:hover{
+  background:#19191c;
+}
+
+.model-name{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:bold;
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:22px;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+  .sidebar{
+    position:fixed;
+    left:-280px;
+    top:0;
+    bottom:0;
+    z-index:20;
+  }
+
+  .sidebar.open{
+    left:0;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .input-area{
+    left:0;
+    padding:12px;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .welcome{
+    margin-top:7vh;
+  }
+
+  .welcome h1{
+    font-size:30px;
+  }
+
+  .welcome p{
+    font-size:14px;
+  }
+
+  .prompts{
+    grid-template-columns:1fr;
+  }
+
+  .chat{
+    padding:25px 12px 120px;
+  }
+
+  .bubble{
+    max-width:90%;
+  }
+
+  .model-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="logo">MDWV STARS</div>
+
+    <button class="new-chat" onclick="newChat()">
+      ＋ New Chat
+    </button>
+
+    <div class="side-title">CHAT</div>
+
+    <div class="side-item" onclick="newChat()">
+      ✦ New Chat
+    </div>
+
+    <div class="side-item">
+      ◷ History
+    </div>
+
+    <div class="side-title">MODES</div>
+
+    <div class="side-item" onclick="showMode('anime')">
+      ◈ Anime Story for Practice
+    </div>
+
+    <div class="side-title">AI MODELS</div>
+
+    <div class="models">
+
+      <div class="model" onclick="selectModel('MDWV Vishuu')">
+        <span class="dot vishuu"></span>
+        MDWV Vishuu
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Vishwas')">
+        <span class="dot vishwas"></span>
+        MDWV Vishwas
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Elvin')">
+        <span class="dot elvin"></span>
+        MDWV Elvin
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Junxuan')">
+        <span class="dot junxuan"></span>
+        MDWV Junxuan
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Lara')">
+        <span class="dot lara"></span>
+        MDWV Lara
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Milly')">
+        <span class="dot milly"></span>
+        MDWV Milly
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Ramya')">
+        <span class="dot ramya"></span>
+        MDWV Ramya
+      </div>
+
+      <div class="model" onclick="selectModel('MDWV Pinu')">
+        <span class="dot pinu"></span>
+        MDWV Pinu
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="menu" onclick="toggleSidebar()">☰</div>
+
+      <div>
+        <span id="currentModel">MDWV Assistant</span>
+      </div>
+
+      <div>✦</div>
+
+    </header>
+
+    <section class="chat" id="chat">
+
+      <div class="welcome" id="welcome">
+
+        <div class="ai-logo">AI</div>
+
+        <h1>Welcome to MDWV Assistant</h1>
+
+        <p>
+          Your voice. Your story. Your world.
+        </p>
+
+        <div class="prompts">
+
+          <div class="prompt" onclick="usePrompt('Explore MDWV Stars')">
+            ✦ Explore MDWV Stars
+          </div>
+
+          <div class="prompt" onclick="usePrompt('Choose your voice model')">
+            ◉ Choose your voice model
+          </div>
+
+          <div class="prompt" onclick="usePrompt('Start an Anime Story')">
+            ◈ Start an Anime Story
+          </div>
+
+          <div class="prompt" onclick="usePrompt('Ask MDWV anything')">
+            ✧ Ask MDWV anything
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- INPUT -->
+<div class="input-area">
+
+  <div class="input-box">
+
+    <textarea
+      id="messageInput"
+      placeholder="Message MDWV Assistant..."
+      onkeydown="handleKey(event)"
+    ></textarea>
+
+    <button class="send" onclick="sendMessage()">↑</button>
+
+  </div>
+
+</div>
+
+<!-- MODEL PANEL -->
+<div class="model-panel" id="modelPanel">
+
+  <div class="panel">
+
+    <span class="close" onclick="closeModels()">×</span>
+
+    <h2>Choose your MDWV model</h2>
+
+    <div class="model-grid">
+
+      <div class="model-card" onclick="selectModel('MDWV Vishuu');closeModels()">
+        <div class="model-name">
+          <span class="dot vishuu"></span>
+          MDWV Vishuu
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Vishwas');closeModels()">
+        <div class="model-name">
+          <span class="dot vishwas"></span>
+          MDWV Vishwas
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Elvin');closeModels()">
+        <div class="model-name">
+          <span class="dot elvin"></span>
+          MDWV Elvin
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Junxuan');closeModels()">
+        <div class="model-name">
+          <span class="dot junxuan"></span>
+          MDWV Junxuan
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Lara');closeModels()">
+        <div class="model-name">
+          <span class="dot lara"></span>
+          MDWV Lara
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Milly');closeModels()">
+        <div class="model-name">
+          <span class="dot milly"></span>
+          MDWV Milly
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Ramya');closeModels()">
+        <div class="model-name">
+          <span class="dot ramya"></span>
+          MDWV Ramya
+        </div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('MDWV Pinu');closeModels()">
+        <div class="model-name">
+          <span class="dot pinu"></span>
+          MDWV Pinu
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+let currentModel = "MDWV Assistant";
+
+/* SIDEBAR */
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList
+    .toggle("open");
+
+}
+
+/* NEW CHAT */
+function newChat(){
+
+  const chat = document.getElementById("chat");
+
+  chat.innerHTML = `
+    <div class="welcome" id="welcome">
+
+      <div class="ai-logo">AI</div>
+
+      <h1>Welcome to MDWV Assistant</h1>
+
+      <p>Your voice. Your story. Your world.</p>
+
+      <div class="prompts">
+
+        <div class="prompt" onclick="usePrompt('Explore MDWV Stars')">
+          ✦ Explore MDWV Stars
+        </div>
+
+        <div class="prompt" onclick="usePrompt('Choose your voice model')">
+          ◉ Choose your voice model
+        </div>
+
+        <div class="prompt" onclick="usePrompt('Start an Anime Story')">
+          ◈ Start an Anime Story
+        </div>
+
+        <div class="prompt" onclick="usePrompt('Ask MDWV anything')">
+          ✧ Ask MDWV anything
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+/* MODEL */
+function selectModel(model){
+
+  currentModel = model;
+
+  document.getElementById("currentModel").textContent = model;
+
+  addMessage(
+    "system",
+    "Selected model: " + model
+  );
+
+}
+
+/* PROMPT */
+function usePrompt(text){
+
+  document.getElementById("messageInput").value = text;
+
+  sendMessage();
+
+}
+
+/* SEND */
+function sendMessage(){
+
+  const input = document.getElementById("messageInput");
+
+  const text = input.value.trim();
+
+  if(!text) return;
+
+  const welcome = document.getElementById("welcome");
+
+  if(welcome){
+    welcome.remove();
+  }
+
+  addMessage("user", text);
+
+  input.value = "";
+
+  setTimeout(() => {
+
+    let reply =
+      "मैं MDWV Assistant हूँ। अभी यह interface तैयार है। वास्तविक AI model को बाद में सुरक्षित तरीके से connect किया जा सकता है।";
+
+    const lower = text.toLowerCase();
+
+    if(lower.includes("mdwv")){
+      reply =
+        "MDWV STARS voice artists की दुनिया को एक जगह लाने के लिए बनाया गया platform है। आप Artists, Awards, Covers और Membership explore कर सकते हैं।";
+    }
+
+    if(lower.includes("register") || lower.includes("registration")){
+      reply =
+        "MDWV STARS में registration या membership के लिए official MDWV WhatsApp contact का इस्तेमाल करें।";
+    }
+
+    if(lower.includes("anime")){
+      reply =
+        "Anime Story Practice mode में आप अपनी voice और storytelling practice के लिए characters और scenes बना सकते हैं।";
+    }
+
+    addMessage("ai", reply);
+
+  }, 500);
+
+}
+
+/* MESSAGE */
+function addMessage(type, text){
+
+  const chat = document.getElementById("chat");
+
+  const message = document.createElement("div");
+
+  message.className = "message";
+
+  const avatar =
+    type === "user"
+    ? "YOU"
+    : type === "system"
+    ? "MD"
+    : "AI";
+
+  message.innerHTML = `
+    <div class="avatar">${avatar}</div>
+    <div class="bubble">${escapeHTML(text)}</div>
+  `;
+
+  chat.appendChild(message);
+
+  chat.scrollTop = chat.scrollHeight;
+
+}
+
+/* HTML SAFETY */
+function escapeHTML(text){
+
+  return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* ENTER */
+function handleKey(event){
+
+  if(event.key === "Enter" && !event.shiftKey){
+
+    event.preventDefault();
+
+    sendMessage();
+
+  }
+
+}
+
+/* ANIME MODE */
+function showMode(mode){
+
+  if(mode === "anime"){
+
+    newChat();
+
+    setTimeout(() => {
+
+      addMessage(
+        "ai",
+        "Anime Story Practice Mode तैयार है। कोई character, world या scene बताइए और हम storytelling practice शुरू कर सकते हैं।"
+      );
+
+    },200);
+
+  }
+
+}
+
+/* MODEL PANEL */
+function openModels(){
+
+  document.getElementById("modelPanel").style.display = "flex";
+
+}
+
+function closeModels(){
+
+  document.getElementById("modelPanel").style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>
