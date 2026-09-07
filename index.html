@@ -2,842 +2,1350 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MDWV STARS</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  background:#08080b;
+  background:#080808;
   color:#fff;
   font-family:Arial,Helvetica,sans-serif;
-  overflow-x:hidden
+  overflow-x:hidden;
 }
-a{text-decoration:none;color:inherit}
-button,input{font:inherit}
 
-.bg{
+.background{
   position:fixed;
   inset:0;
   z-index:-2;
   overflow:hidden;
-  background:radial-gradient(circle at 50% 10%,#191325,#08080b 55%)
+  background:
+    radial-gradient(circle at 20% 20%,#171717,transparent 35%),
+    radial-gradient(circle at 80% 70%,#111,transparent 35%),
+    #080808;
 }
+
 .orb{
   position:absolute;
-  width:420px;
-  height:420px;
   border-radius:50%;
-  filter:blur(110px);
-  opacity:.32;
-  animation:float 12s ease-in-out infinite alternate
+  filter:blur(90px);
+  opacity:.35;
+  animation:float 12s infinite alternate ease-in-out;
 }
-.orb1{background:#743cff;top:0;left:-12%}
-.orb2{background:#ff3c91;right:-12%;top:35%;animation-delay:-4s}
-.orb3{background:#2d65ff;left:35%;bottom:-20%;animation-delay:-7s}
+
+.orb1{
+  width:350px;
+  height:350px;
+  background:#4c4cff;
+  left:-150px;
+  top:100px;
+}
+
+.orb2{
+  width:300px;
+  height:300px;
+  background:#ff287d;
+  right:-100px;
+  top:500px;
+  animation-delay:2s;
+}
+
+.orb3{
+  width:250px;
+  height:250px;
+  background:#8b3dff;
+  left:45%;
+  bottom:-100px;
+  animation-delay:4s;
+}
 
 @keyframes float{
-  from{transform:translate(0,0) scale(1)}
-  to{transform:translate(70px,-45px) scale(1.15)}
+  from{transform:translate(0,0)}
+  to{transform:translate(80px,-50px)}
 }
 
+/* NAVBAR */
+
 .navbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  height:76px;
-  padding:0 5vw;
+  height:80px;
+  width:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding:0 5%;
+  position:fixed;
+  top:0;
+  left:0;
   z-index:100;
-  background:rgba(8,8,11,.75);
+  background:rgba(8,8,8,.72);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.08)
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
+
 .logo{
-  font-size:20px;
-  font-weight:800;
-  letter-spacing:-1px
-}
-.logo span{color:#a889ff}
-
-.nav-links{
-  display:flex;
-  gap:32px
-}
-.nav-links a{
-  font-size:13px;
-  color:#aaa;
-  transition:.3s
-}
-.nav-links a:hover{color:#fff}
-
-.nav-right{
   display:flex;
   align-items:center;
-  gap:15px
+  gap:10px;
 }
-.search{
-  width:190px;
-  height:38px;
-  padding:0 13px;
+
+.logo-mark{
+  width:36px;
+  height:36px;
+  border:1px solid #fff;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-size:20px;
+}
+
+.logo strong,.logo span{
+  display:block;
+}
+
+.logo strong{
+  font-size:15px;
+  letter-spacing:2px;
+}
+
+.logo span{
+  font-size:10px;
+  letter-spacing:4px;
+  opacity:.55;
+}
+
+nav{
+  display:flex;
+  gap:30px;
+}
+
+nav a,.mobile-menu a{
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  opacity:.65;
+  transition:.3s;
+}
+
+nav a:hover,.mobile-menu a:hover{
+  opacity:1;
+}
+
+.nav-search{
+  display:flex;
+  border:1px solid rgba(255,255,255,.15);
   border-radius:30px;
-  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
   background:rgba(255,255,255,.04);
-  color:#fff;
-  outline:none
 }
-.search::placeholder{color:#777}
-.menu{
-  display:none;
-  background:none;
+
+.nav-search input{
+  width:160px;
+  padding:10px 15px;
   border:0;
+  outline:0;
   color:#fff;
-  font-size:25px
+  background:transparent;
 }
+
+.nav-search button{
+  border:0;
+  background:transparent;
+  color:#fff;
+  padding:0 15px;
+  cursor:pointer;
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:none;
+  color:#fff;
+  font-size:24px;
+}
+
+/* MOBILE MENU */
+
+.mobile-menu{
+  display:none;
+}
+
+.mobile-menu.open{
+  display:flex;
+}
+
+/* HERO */
 
 .hero{
   min-height:100vh;
-  padding:180px 8vw 100px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center
+  padding:160px 8% 100px;
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  align-items:center;
+  gap:50px;
 }
-.eyebrow{
-  color:#9c82ff;
+
+.eyebrow,.section small{
   font-size:11px;
   letter-spacing:3px;
-  font-weight:700
+  opacity:.55;
 }
-.hero h1{
-  margin-top:25px;
-  font-size:clamp(70px,11vw,170px);
-  line-height:.84;
-  letter-spacing:-8px
-}
-.hero h1 span{
-  color:transparent;
-  -webkit-text-stroke:1px #aaa
-}
-.hero p{
-  max-width:530px;
-  margin-top:40px;
-  color:#999;
-  line-height:1.7
-}
-.buttons{
-  display:flex;
-  gap:12px;
-  margin-top:35px;
-  flex-wrap:wrap
-}
-.btn{
-  display:inline-block;
-  padding:14px 22px;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,.15);
-  transition:.3s;
-  font-size:13px
-}
-.primary{
+
+.dot{
+  width:7px;
+  height:7px;
   background:#fff;
-  color:#08080b;
-  border-color:#fff
+  display:inline-block;
+  border-radius:50%;
+  margin-right:8px;
 }
-.primary:hover{transform:translateY(-3px)}
-.secondary{background:rgba(255,255,255,.05)}
+
+.hero h1{
+  font-size:clamp(60px,9vw,130px);
+  line-height:.9;
+  letter-spacing:-6px;
+  margin:30px 0;
+}
+
+.hero h1 span{
+  opacity:.45;
+}
+
+.hero p{
+  max-width:550px;
+  line-height:1.7;
+  color:#aaa;
+  font-size:16px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:15px;
+  margin-top:35px;
+}
+
+.primary-btn,.secondary-btn{
+  padding:15px 24px;
+  border-radius:40px;
+  text-decoration:none;
+  font-size:13px;
+  transition:.3s;
+}
+
+.primary-btn{
+  background:#fff;
+  color:#000;
+}
+
+.secondary-btn{
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+}
+
+.primary-btn:hover,.secondary-btn:hover{
+  transform:translateY(-4px);
+}
+
+.hero-right{
+  display:flex;
+  justify-content:center;
+}
+
+.hero-card{
+  width:300px;
+  height:400px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:25px;
+  padding:30px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.015)
+  );
+  backdrop-filter:blur(20px);
+  transform:rotate(5deg);
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.hero-card-number{
+  font-size:12px;
+  opacity:.5;
+}
+
+.hero-card-title{
+  font-size:65px;
+  font-weight:900;
+  margin-top:100px;
+}
+
+.hero-card-line{
+  height:1px;
+  background:rgba(255,255,255,.25);
+  margin:20px 0;
+}
+
+.hero-card p{
+  font-size:13px;
+}
+
+/* MARQUEE */
 
 .marquee{
   overflow:hidden;
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  padding:20px 0
+  border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  padding:20px 0;
 }
-.track{
+
+.marquee-track{
   display:flex;
   gap:35px;
   width:max-content;
-  color:#777;
-  font-size:12px;
-  letter-spacing:3px;
-  animation:marquee 25s linear infinite
+  animation:marquee 20s linear infinite;
 }
+
+.marquee span{
+  font-size:13px;
+  letter-spacing:3px;
+}
+
+.marquee b{
+  opacity:.3;
+}
+
 @keyframes marquee{
   to{transform:translateX(-50%)}
 }
 
-.section{padding:140px 8vw}
-.heading{
+/* SECTION */
+
+.section{
+  padding:150px 8%;
+}
+
+.section-heading{
   display:flex;
   justify-content:space-between;
   align-items:end;
   gap:40px;
-  margin-bottom:65px
+  margin-bottom:70px;
 }
-.heading h2,
-.ai h2,
-.member h2,
-.connect h2{
-  margin-top:18px;
-  font-size:clamp(45px,7vw,90px);
-  line-height:.95;
-  letter-spacing:-4px
+
+.section-heading h2,.connect h2{
+  font-size:clamp(55px,8vw,100px);
+  line-height:.9;
+  letter-spacing:-4px;
+  margin-top:25px;
 }
-.heading h2 i,
-.ai h2 span,
-.member h2 i,
-.connect h2 i{
-  color:transparent;
-  -webkit-text-stroke:1px #aaa;
-  font-style:normal
+
+.section-heading h2 i,
+.connect h2 i,
+.membership h2 i{
+  font-weight:300;
+  color:#777;
 }
-.heading>p{
+
+.section-heading p{
   max-width:350px;
   color:#888;
-  line-height:1.7
+  line-height:1.7;
 }
 
-.artists{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px
-}
-.artist{
-  min-height:470px;
-  position:relative;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025);
-  transition:.4s
-}
-.artist:hover{
-  transform:translateY(-7px);
-  border-color:rgba(255,255,255,.3)
-}
-.artist:last-child{grid-column:span 2}
+/* ARTISTS */
 
-.artist-bg{
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  background:radial-gradient(circle at center,#30234f,#101015 65%)
-}
-.artist-bg b{
-  font-size:100px;
-  color:rgba(255,255,255,.06)
-}
-.artist-info{
-  position:absolute;
-  left:30px;
-  right:30px;
-  bottom:28px
-}
-.artist-info small{
-  color:#aaa;
-  font-size:10px;
-  letter-spacing:2px
-}
-.artist-info h3{
-  margin-top:8px;
-  font-size:30px
-}
-.profile{
-  margin-top:15px;
-  padding:9px 14px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(0,0,0,.3);
-  color:#fff;
-  font-size:12px
-}
-
-.ai{
-  padding-top:40px
-}
-.ai-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  padding:65px;
-  min-height:580px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025)
-}
-.ai p{
-  max-width:470px;
-  margin:28px 0;
-  color:#888;
-  line-height:1.7
-}
-.ai-window{
-  align-self:center;
-  padding:25px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:20px;
-  background:#0e0e13
-}
-.ai-top{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding-bottom:18px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  font-size:13px
-}
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#69ff9c;
-  box-shadow:0 0 12px #69ff9c
-}
-.online{
-  margin-left:auto;
-  color:#69ff9c;
-  font-size:8px;
-  letter-spacing:2px
-}
-.ai-msg{
-  margin-top:30px;
-  display:flex;
-  gap:12px
-}
-.avatar{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#8e6aff,#ff6aaf);
-  font-weight:bold
-}
-.ai-msg p{
-  margin:7px 0 0;
-  font-size:13px
-}
-.ai-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:30px
-}
-.ai-buttons button{
-  padding:9px 12px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.04);
-  color:#aaa;
-  font-size:11px
-}
-
-.awards{
-  border-top:1px solid rgba(255,255,255,.1)
-}
-.award{
-  min-height:110px;
-  display:grid;
-  grid-template-columns:60px 1fr 30px;
-  align-items:center;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  transition:.3s
-}
-.award:hover{padding-left:12px}
-.award span{color:#777;font-size:12px}
-.award h3{font-size:23px}
-.award p{color:#777;font-size:12px;margin-top:7px}
-
-.covers{
+.artists-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px
+  gap:20px;
 }
-.cover{
-  min-height:240px;
+
+.artist-card{
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(255,255,255,.025);
+  transition:.4s;
+}
+
+.artist-card:hover{
+  transform:translateY(-10px);
+  border-color:rgba(255,255,255,.3);
+}
+
+.artist-image{
+  height:330px;
+  display:grid;
+  place-items:center;
+  font-size:70px;
+  font-weight:900;
+  color:rgba(255,255,255,.3);
+}
+
+.image-one{
+  background:linear-gradient(145deg,#292929,#111);
+}
+
+.image-two{
+  background:linear-gradient(145deg,#18263d,#070b12);
+}
+
+.image-three{
+  background:linear-gradient(145deg,#ddd,#777);
+  color:rgba(0,0,0,.35);
+}
+
+.image-four{
+  background:linear-gradient(145deg,#4d1111,#120606);
+}
+
+.image-five{
+  background:linear-gradient(145deg,#632c56,#140812);
+}
+
+.artist-info{
   padding:25px;
+}
+
+.artist-info small{
+  font-size:9px;
+  letter-spacing:2px;
+  color:#777;
+}
+
+.artist-info h3{
+  margin:10px 0;
+  font-size:25px;
+}
+
+.artist-info p{
+  color:#777;
+  font-size:12px;
+}
+
+.artist-info button{
+  margin-top:20px;
+  border:0;
+  background:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* AI */
+
+.ai-preview{
+  margin:50px 8% 150px;
+  min-height:600px;
+  border-radius:35px;
+  border:1px solid rgba(255,255,255,.12);
+  position:relative;
+  overflow:hidden;
+  padding:80px;
+  background:
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(100,80,255,.2),
+      transparent 35%
+    ),
+    rgba(255,255,255,.025);
+}
+
+.ai-content{
+  position:relative;
+  z-index:2;
+  max-width:600px;
+}
+
+.ai-content h2{
+  font-size:clamp(60px,8vw,110px);
+  line-height:.9;
+  letter-spacing:-5px;
+  margin:25px 0;
+}
+
+.ai-content h2 span{
+  color:#777;
+}
+
+.ai-content p{
+  color:#999;
+  line-height:1.7;
+  max-width:480px;
+}
+
+.ai-content button{
+  margin-top:30px;
+  padding:15px 25px;
+  border-radius:30px;
+  background:#fff;
+  border:0;
+  cursor:pointer;
+}
+
+.ai-symbol{
+  position:absolute;
+  right:10%;
+  top:50%;
+  transform:translateY(-50%);
+  width:300px;
+  height:300px;
+}
+
+.ai-ring{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+  animation:spin 10s linear infinite;
+}
+
+.ring2{
+  inset:30px;
+  animation-direction:reverse;
+  animation-duration:7s;
+}
+
+.ai-core{
+  position:absolute;
+  inset:100px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(15px);
+  font-weight:900;
+  font-size:30px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* AWARDS */
+
+.awards-list{
+  border-top:1px solid rgba(255,255,255,.15);
+}
+
+.award-row{
+  display:grid;
+  grid-template-columns:70px 1fr 100px;
+  align-items:center;
+  padding:30px 0;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  transition:.3s;
+}
+
+.award-row:hover{
+  padding-left:20px;
+}
+
+.award-row>span{
+  color:#555;
+}
+
+.award-row h3{
+  font-size:24px;
+  font-weight:400;
+}
+
+.award-row p{
+  color:#666;
+  margin-top:5px;
+  font-size:12px;
+}
+
+.award-row strong{
+  color:#666;
+  font-weight:400;
+}
+
+/* COVERS */
+
+.cover-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.cover-card{
+  min-height:330px;
+  padding:30px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;
+  flex-direction:column;
+  justify-content:end;
+  background:linear-gradient(145deg,#1d1d1d,#090909);
+  transition:.4s;
+}
+
+.cover-card:hover{
+  transform:scale(.98);
+}
+
+.cover-card>span{
+  margin-bottom:auto;
+  font-size:10px;
+  letter-spacing:2px;
+  opacity:.5;
+}
+
+.cover-card h3{
+  font-size:30px;
+}
+
+.cover-card p{
+  color:#666;
+  margin-top:8px;
+}
+
+/* MEMBERSHIP */
+
+.membership{
+  padding:150px 8%;
+  background:#f1f1ed;
+  color:#111;
+}
+
+.membership-inner{
+  display:grid;
+  grid-template-columns:1fr 400px;
+  gap:80px;
+  align-items:center;
+}
+
+.membership h2{
+  font-size:clamp(60px,8vw,110px);
+  line-height:.9;
+  letter-spacing:-5px;
+  margin:25px 0;
+}
+
+.membership p{
+  max-width:500px;
+  line-height:1.7;
+  color:#666;
+}
+
+.membership-card{
+  padding:35px;
+  background:#111;
+  color:#fff;
+  border-radius:25px;
+  min-height:380px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025)
-}
-.cover small{
-  color:#777;
-  letter-spacing:2px
-}
-.cover h3{font-size:24px}
-.play{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  border:0;
-  background:#fff;
-  color:#000
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
 }
 
-.member-box{
-  padding:65px;
+.membership-top{
   display:flex;
   justify-content:space-between;
-  align-items:end;
-  gap:40px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025)
+  font-size:10px;
+  letter-spacing:3px;
 }
-.member p{
-  max-width:500px;
-  margin-top:25px;
-  color:#888;
-  line-height:1.7
+
+.membership-card h3{
+  font-size:30px;
 }
-.member-action{min-width:220px}
-.member-action strong{
+
+.price small{
   display:block;
-  margin-bottom:18px;
-  font-size:20px
+  color:#777;
 }
+
+.price strong{
+  display:block;
+  font-size:60px;
+}
+
+.membership-card button{
+  padding:15px;
+  border:0;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+/* CONNECT */
 
 .connect{
-  min-height:75vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center
-}
-.connect p{
-  max-width:500px;
-  margin:28px auto;
-  color:#888;
-  line-height:1.7
-}
-.social{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap
-}
-.social button{
-  padding:14px 22px;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.04);
-  color:#fff
+  text-align:center;
 }
 
-footer{
-  padding:50px 8vw 30px;
-  border-top:1px solid rgba(255,255,255,.1)
+.connect p{
+  color:#777;
+  margin:30px auto;
 }
-.footer-top,.footer-bottom{
+
+.connect-buttons{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+.connect-buttons button{
+  padding:15px 30px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+  background:transparent;
+  cursor:pointer;
+}
+
+.connect-buttons button:hover{
+  background:#fff;
+  color:#000;
+}
+
+/* FOOTER */
+
+footer{
+  padding:60px 8% 30px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+.footer-logo strong,.footer-logo span{
+  display:block;
+}
+
+.footer-logo strong{
+  font-size:25px;
+  letter-spacing:4px;
+}
+
+.footer-logo span{
+  font-size:10px;
+  letter-spacing:7px;
+  color:#777;
+}
+
+footer p{
+  color:#555;
+  margin:20px 0 60px;
+}
+
+.footer-bottom{
   display:flex;
   justify-content:space-between;
-  gap:30px
+  color:#444;
+  font-size:11px;
 }
-.footer-logo{font-size:22px;font-weight:800}
-.footer-logo span{color:#a889ff}
-.footer-links{display:flex;gap:25px}
-.footer-links a{font-size:12px;color:#777}
-.footer-bottom{
-  margin-top:60px;
-  color:#555;
-  font-size:10px;
-  letter-spacing:1px
-}
+
+/* POPUP */
 
 .popup{
   position:fixed;
   inset:0;
-  z-index:200;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(12px);
   display:none;
   place-items:center;
-  padding:20px;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:blur(10px)
+  z-index:200;
 }
-.popup.active{display:grid}
+
+.popup.show{
+  display:grid;
+}
+
 .popup-box{
+  width:min(500px,90%);
+  padding:40px;
+  background:#151515;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:25px;
   position:relative;
-  width:100%;
-  max-width:480px;
-  padding:45px;
-  background:#111116;
-  border:1px solid rgba(255,255,255,.15)
 }
-.close{
+
+.popup-close{
   position:absolute;
-  right:15px;
-  top:10px;
+  right:20px;
+  top:15px;
   border:0;
   background:none;
   color:#fff;
-  font-size:28px
+  font-size:28px;
+  cursor:pointer;
 }
-.popup-box h2{margin:20px 0 12px;font-size:38px}
-.popup-box p{color:#888;line-height:1.7;margin-bottom:25px}
 
-@media(max-width:850px){
-  .nav-links{
+.popup-box h2{
+  font-size:35px;
+  margin-bottom:15px;
+}
+
+.popup-box p{
+  color:#888;
+  line-height:1.7;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  nav{
     display:none;
-    position:absolute;
-    top:76px;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .nav-search{
+    display:none;
+  }
+
+  .mobile-menu{
+    position:fixed;
+    top:80px;
     left:0;
     right:0;
+    z-index:90;
+    background:#0b0b0b;
     padding:25px;
     flex-direction:column;
-    background:#0c0c10
+    gap:20px;
+    border-bottom:1px solid rgba(255,255,255,.1);
   }
-  .nav-links.active{display:flex}
-  .menu{display:block}
-  .artists{grid-template-columns:1fr}
-  .artist:last-child{grid-column:auto}
-  .ai-box{grid-template-columns:1fr;padding:35px}
-  .covers{grid-template-columns:1fr}
-  .member-box{flex-direction:column;align-items:flex-start}
-  .heading{flex-direction:column;align-items:flex-start}
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .hero-right{
+    display:none;
+  }
+
+  .artists-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .cover-grid{
+    grid-template-columns:1fr;
+  }
+
+  .membership-inner{
+    grid-template-columns:1fr;
+  }
+
+  .ai-symbol{
+    opacity:.3;
+    right:-80px;
+  }
 }
 
-@media(max-width:550px){
-  .search{display:none}
-  .hero{padding-left:6vw;padding-right:6vw}
-  .hero h1{font-size:18vw;letter-spacing:-5px}
-  .section{padding:100px 6vw}
-  .ai-box,.member-box{padding:25px}
-  .footer-top,.footer-bottom{flex-direction:column}
+@media(max-width:600px){
+
+  .navbar{
+    padding:0 20px;
+  }
+
+  .hero,.section{
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .hero{
+    padding-top:130px;
+  }
+
+  .hero h1{
+    font-size:62px;
+    letter-spacing:-4px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .primary-btn,.secondary-btn{
+    text-align:center;
+  }
+
+  .section-heading{
+    flex-direction:column;
+    align-items:start;
+  }
+
+  .section-heading h2,.connect h2{
+    font-size:58px;
+  }
+
+  .artists-grid{
+    grid-template-columns:1fr;
+  }
+
+  .artist-image{
+    height:300px;
+  }
+
+  .ai-preview{
+    margin-left:20px;
+    margin-right:20px;
+    padding:40px 25px;
+  }
+
+  .ai-content h2{
+    font-size:60px;
+  }
+
+  .ai-symbol{
+    display:none;
+  }
+
+  .award-row{
+    grid-template-columns:40px 1fr;
+  }
+
+  .award-row strong{
+    display:none;
+  }
+
+  .membership{
+    padding:100px 20px;
+  }
+
+  .membership-inner{
+    gap:50px;
+  }
+
+  .membership h2{
+    font-size:60px;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:10px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg">
+<div class="background">
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
 </div>
 
 <header class="navbar">
-  <a href="#" class="logo">MDWV <span>STARS</span></a>
 
-  <nav class="nav-links" id="nav">
+  <div class="logo">
+    <div class="logo-mark">✦</div>
+    <div>
+      <strong>MDWV</strong>
+      <span>STARS</span>
+    </div>
+  </div>
+
+  <nav>
     <a href="#artists">Artists</a>
     <a href="#awards">Awards</a>
     <a href="#membership">Membership</a>
     <a href="#connect">Connect</a>
   </nav>
 
-  <div class="nav-right">
-    <input class="search" id="search" placeholder="Search...">
-    <button class="menu" id="menu">☰</button>
+  <div class="nav-search">
+    <input id="siteSearch" type="text" placeholder="Search artists...">
+    <button onclick="searchSite()">⌕</button>
   </div>
+
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
 </header>
+
+<div id="mobileMenu" class="mobile-menu">
+  <a href="#artists" onclick="toggleMenu()">Artists</a>
+  <a href="#awards" onclick="toggleMenu()">Awards</a>
+  <a href="#membership" onclick="toggleMenu()">Membership</a>
+  <a href="#connect" onclick="toggleMenu()">Connect</a>
+</div>
 
 <main>
 
 <section class="hero">
-  <span class="eyebrow">THE VOICE OF THE MOMENT</span>
 
-  <h1>
-    Voices<br>
-    <span>that stay</span><br>
-    with you.
-  </h1>
+  <div class="hero-left">
 
-  <p>
-    Discover extraordinary voices, unforgettable performances
-    and the artists behind the characters you love.
-  </p>
+    <div class="eyebrow">
+      <span class="dot"></span>
+      THE VOICE OF STARS
+    </div>
 
-  <div class="buttons">
-    <a href="#artists" class="btn primary">Explore Artists ↗</a>
-    <a href="#ai" class="btn secondary">Meet MDWV Assistant</a>
+    <h1>
+      Voices that<br>
+      <span>stay with you.</span>
+    </h1>
+
+    <p>
+      Discover extraordinary voice artists,
+      iconic performances and the next generation
+      of voices shaping entertainment.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#artists" class="primary-btn">
+        Explore Artists →
+      </a>
+
+      <a href="#awards" class="secondary-btn">
+        View Awards
+      </a>
+    </div>
+
   </div>
+
+  <div class="hero-right">
+
+    <div class="hero-card">
+      <div class="hero-card-number">01</div>
+      <div class="hero-card-title">VOICE</div>
+      <div class="hero-card-line"></div>
+      <p>
+        A platform built around
+        powerful voices.
+      </p>
+    </div>
+
+  </div>
+
 </section>
 
 <div class="marquee">
-  <div class="track">
-    <span>VOICE OVER</span><span>•</span>
-    <span>DUBBING</span><span>•</span>
-    <span>NARRATION</span><span>•</span>
-    <span>CHARACTER VOICES</span><span>•</span>
-    <span>VOICE OVER</span><span>•</span>
-    <span>DUBBING</span><span>•</span>
-    <span>NARRATION</span><span>•</span>
+  <div class="marquee-track">
+    <span>VOICE ARTISTS</span>
+    <b>✦</b>
+    <span>VOICE OVERS</span>
+    <b>✦</b>
+    <span>DUBBING</span>
+    <b>✦</b>
+    <span>STORIES</span>
+    <b>✦</b>
+    <span>VOICE ARTISTS</span>
+    <b>✦</b>
+    <span>VOICE OVERS</span>
+    <b>✦</b>
   </div>
 </div>
 
-<section class="section" id="artists">
+<section id="artists" class="section">
 
-  <div class="heading">
+  <div class="section-heading">
+
     <div>
-      <span class="eyebrow">01 — THE ARTISTS</span>
-      <h2>Voices behind<br><i>the magic.</i></h2>
+      <small>01 / ARTISTS</small>
+      <h2>Meet the<br><i>voices.</i></h2>
     </div>
 
     <p>
-      Meet some of the voices that bring characters,
-      stories and worlds to life.
+      A selection of exceptional artists
+      whose voices have become part of
+      unforgettable stories.
     </p>
+
   </div>
 
-  <div class="artists">
+  <div class="artists-grid">
 
-    <article class="artist">
-      <div class="artist-bg"><b>SM</b></div>
+    <article class="artist-card">
+
+      <div class="artist-image image-one">
+        <span>SM</span>
+      </div>
+
       <div class="artist-info">
         <small>VOICE ARTIST</small>
         <h3>Sanket Mhatre</h3>
-        <button class="profile"
-          onclick="showPopup('Sanket Mhatre','Hindi voice-over and dubbing artist.')">
-          View profile ↗
+        <p>Voice Over · Dubbing · Narration</p>
+
+        <button onclick="artistInfo('Sanket Mhatre')">
+          Discover →
         </button>
       </div>
+
     </article>
 
-    <article class="artist">
-      <div class="artist-bg"><b>LS</b></div>
+    <article class="artist-card">
+
+      <div class="artist-image image-two">
+        <span>LS</span>
+      </div>
+
       <div class="artist-info">
         <small>VOICE ARTIST</small>
         <h3>Lohit Sharma</h3>
-        <button class="profile"
-          onclick="showPopup('Lohit Sharma','Voice-over and dubbing artist.')">
-          View profile ↗
+        <p>Dubbing · Anime · Voice Over</p>
+
+        <button onclick="artistInfo('Lohit Sharma')">
+          Discover →
         </button>
       </div>
+
     </article>
 
-    <article class="artist">
-      <div class="artist-bg"><b>VV</b></div>
+    <article class="artist-card">
+
+      <div class="artist-image image-three">
+        <span>VV</span>
+      </div>
+
       <div class="artist-info">
         <small>NARRATOR</small>
         <h3>Vijay Vikram Singh</h3>
-        <button class="profile"
-          onclick="showPopup('Vijay Vikram Singh','Narrator, actor and voice artist.')">
-          View profile ↗
+        <p>Narration · Voice Over · Speaking</p>
+
+        <button onclick="artistInfo('Vijay Vikram Singh')">
+          Discover →
         </button>
       </div>
+
     </article>
 
-    <article class="artist">
-      <div class="artist-bg"><b>SG</b></div>
+    <article class="artist-card">
+
+      <div class="artist-image image-four">
+        <span>SG</span>
+      </div>
+
       <div class="artist-info">
         <small>DUBBING ARTIST</small>
         <h3>Sachin Gole</h3>
-        <button class="profile"
-          onclick="showPopup('Sachin Gole','Hindi dubbing artist.')">
-          View profile ↗
+        <p>Dubbing · Films · Voice Acting</p>
+
+        <button onclick="artistInfo('Sachin Gole')">
+          Discover →
         </button>
       </div>
+
     </article>
 
-    <article class="artist">
-      <div class="artist-bg"><b>SK</b></div>
+    <article class="artist-card">
+
+      <div class="artist-image image-five">
+        <span>SK</span>
+      </div>
+
       <div class="artist-info">
         <small>VOICE ARTIST</small>
         <h3>Sonal Kaushal</h3>
-        <button class="profile"
-          onclick="showPopup('Sonal Kaushal','Indian voice and dubbing artist.')">
-          View profile ↗
+        <p>Animation · Dubbing · Voice Acting</p>
+
+        <button onclick="artistInfo('Sonal Kaushal')">
+          Discover →
         </button>
       </div>
+
     </article>
 
   </div>
+
 </section>
 
-<section class="section ai" id="ai">
+<section class="ai-preview">
 
-  <div class="ai-box">
+  <div class="ai-content">
 
-    <div>
-      <span class="eyebrow">02 — INTELLIGENCE</span>
+    <small>02 / COMING SOON</small>
 
-      <h2>
-        Meet the<br>
-        <span>MDWV Assistant.</span>
-      </h2>
+    <h2>
+      Meet the<br>
+      <span>MDWV Assistant.</span>
+    </h2>
 
-      <p>
-        Your intelligent companion for discovering artists,
-        voices, performances and everything MDWV STARS.
-      </p>
+    <p>
+      A new way to experience MDWV STARS.
+      Talk, discover and explore the world
+      of voice artists through an intelligent
+      digital assistant.
+    </p>
 
-      <button class="btn primary"
-        onclick="showPopup('MDWV Assistant','The real AI assistant will be added here soon.')">
-        Enter Assistant ↗
-      </button>
-    </div>
+    <button onclick="comingSoon()">
+      Coming Soon
+    </button>
 
-    <div class="ai-window">
+  </div>
 
-      <div class="ai-top">
-        <div class="dot"></div>
-        <span>MDWV Assistant</span>
-        <span class="online">ONLINE</span>
-      </div>
+  <div class="ai-symbol">
 
-      <div class="ai-msg">
-        <div class="avatar">M</div>
-
-        <div>
-          <strong>MDWV Assistant</strong>
-          <p>
-            Hello. I'm the MDWV Assistant.
-            Ask me about our artists and voices.
-          </p>
-        </div>
-      </div>
-
-      <div class="ai-buttons">
-        <button>Who are the artists?</button>
-        <button>Best voice covers?</button>
-        <button>About MDWV STARS</button>
-      </div>
-
-    </div>
+    <div class="ai-ring ring1"></div>
+    <div class="ai-ring ring2"></div>
+    <div class="ai-core">AI</div>
 
   </div>
 
 </section>
 
-<section class="section" id="awards">
+<section id="awards" class="section awards-section">
 
-  <div class="heading">
+  <div class="section-heading">
+
     <div>
-      <span class="eyebrow">03 — RECOGNITION</span>
+      <small>03 / AWARDS</small>
       <h2>Voice Over<br><i>Awards.</i></h2>
     </div>
 
     <p>
-      Celebrating talent, creativity and voices
-      that leave a lasting impression.
+      Celebrating voices that bring
+      characters, stories and emotions
+      to life.
     </p>
+
   </div>
 
-  <div class="awards">
+  <div class="awards-list">
 
-    <div class="award">
+    <div class="award-row">
       <span>01</span>
       <div>
         <h3>Best Voice Performance</h3>
-        <p>Exceptional character performance</p>
+        <p>Outstanding vocal performance</p>
       </div>
-      <span>↗</span>
+      <strong>2026</strong>
     </div>
 
-    <div class="award">
+    <div class="award-row">
       <span>02</span>
       <div>
         <h3>Best Dubbing Artist</h3>
-        <p>Outstanding Hindi dubbing</p>
+        <p>Exceptional dubbing performance</p>
       </div>
-      <span>↗</span>
+      <strong>2026</strong>
     </div>
 
-    <div class="award">
+    <div class="award-row">
       <span>03</span>
       <div>
         <h3>Best Narration</h3>
-        <p>Voice that tells unforgettable stories</p>
+        <p>Voice that defined a story</p>
       </div>
-      <span>↗</span>
+      <strong>2026</strong>
+    </div>
+
+    <div class="award-row">
+      <span>04</span>
+      <div>
+        <h3>Rising Voice Star</h3>
+        <p>The next generation of talent</p>
+      </div>
+      <strong>2026</strong>
     </div>
 
   </div>
+
 </section>
 
-<section class="section">
+<section class="covers section">
 
-  <div class="heading">
+  <div class="section-heading">
+
     <div>
-      <span class="eyebrow">04 — LISTEN</span>
-      <h2>Best Voice<br><i>Covers.</i></h2>
-    </div>
-  </div>
-
-  <div class="covers">
-
-    <div class="cover">
-      <small>FEATURED COVER</small>
-      <h3>The Voice Within</h3>
-      <button class="play" onclick="showPopup('Voice Cover','Audio will be available soon.')">▶</button>
-    </div>
-
-    <div class="cover">
-      <small>CHARACTER COVER</small>
-      <h3>Legendary Voice</h3>
-      <button class="play" onclick="showPopup('Character Cover','Audio will be available soon.')">▶</button>
-    </div>
-
-    <div class="cover">
-      <small>NARRATION</small>
-      <h3>A Story Begins</h3>
-      <button class="play" onclick="showPopup('Narration','Audio will be available soon.')">▶</button>
+      <small>04 / BEST COVERS</small>
+      <h2>Voices in<br><i>motion.</i></h2>
     </div>
 
   </div>
+
+  <div class="cover-grid">
+
+    <div class="cover-card">
+      <span>PLAY</span>
+      <h3>Iconic Characters</h3>
+      <p>Voice Cover Collection</p>
+    </div>
+
+    <div class="cover-card">
+      <span>PLAY</span>
+      <h3>Anime Voices</h3>
+      <p>Voice Cover Collection</p>
+    </div>
+
+    <div class="cover-card">
+      <span>PLAY</span>
+      <h3>Cinematic Voices</h3>
+      <p>Voice Cover Collection</p>
+    </div>
+
+  </div>
+
 </section>
 
-<section class="section member" id="membership">
+<section id="membership" class="membership">
 
-  <div class="member-box">
+  <div class="membership-inner">
 
     <div>
-      <span class="eyebrow">05 — MEMBERSHIP</span>
+
+      <small>05 / MEMBERSHIP</small>
 
       <h2>
-        Become part<br>
-        of <i>MDWV STARS.</i>
+        Become part of<br>
+        <i>MDWV STARS.</i>
       </h2>
 
       <p>
-        Get access to exclusive voice content,
-        upcoming artists and special experiences.
+        Unlock exclusive experiences,
+        artist updates and upcoming
+        platform features.
       </p>
+
     </div>
 
-    <div class="member-action">
-      <strong>COMING SOON</strong>
+    <div class="membership-card">
 
-      <button class="btn primary"
-        onclick="showPopup('Membership','Membership will open soon.')">
-        Join the waitlist ↗
+      <div class="membership-top">
+        <span>MDWV</span>
+        <span>STARS</span>
+      </div>
+
+      <h3>STAR MEMBER</h3>
+
+      <div class="price">
+        <small>Starting from</small>
+        <strong>₹499</strong>
+      </div>
+
+      <button onclick="joinMembership()">
+        Join Membership →
       </button>
+
     </div>
 
   </div>
+
 </section>
 
-<section class="section connect" id="connect">
+<section id="connect" class="connect section">
 
-  <div>
-    <span class="eyebrow">06 — CONNECT</span>
+  <small>06 / CONNECT</small>
 
-    <h2>
-      Let's create<br>
-      <i>something unforgettable.</i>
-    </h2>
+  <h2>
+    Let's create<br>
+    <i>something memorable.</i>
+  </h2>
 
-    <p>
-      Follow MDWV STARS and stay connected
-      with the world of voices.
-    </p>
+  <p>
+    Stay connected with MDWV STARS
+    and discover what's coming next.
+  </p>
 
-    <div class="social">
-      <button onclick="showPopup('Instagram','Instagram link will be added soon.')">
-        Instagram ↗
-      </button>
+  <div class="connect-buttons">
 
-      <button onclick="showPopup('WhatsApp','WhatsApp link will be added soon.')">
-        WhatsApp ↗
-      </button>
+    <button onclick="whatsapp()">
+      WhatsApp
+    </button>
 
-      <button onclick="showPopup('X','X link will be added soon.')">
-        X ↗
-      </button>
-    </div>
+    <button onclick="socialMessage()">
+      Instagram
+    </button>
+
   </div>
 
 </section>
@@ -846,41 +1354,27 @@ footer{
 
 <footer>
 
-  <div class="footer-top">
-    <div class="footer-logo">MDWV <span>STARS</span></div>
-
-    <div class="footer-links">
-      <a href="#artists">Artists</a>
-      <a href="#ai">Assistant</a>
-      <a href="#awards">Awards</a>
-      <a href="#membership">Membership</a>
-    </div>
+  <div class="footer-logo">
+    <strong>MDWV</strong>
+    <span>STARS</span>
   </div>
+
+  <p>Voices. Stories. Stars.</p>
 
   <div class="footer-bottom">
     <span>© 2026 MDWV STARS</span>
-    <span>VOICES THAT STAY WITH YOU.</span>
+    <span>Built for voices that matter.</span>
   </div>
 
 </footer>
 
-<div class="popup" id="popup">
+<div id="popup" class="popup">
 
   <div class="popup-box">
 
-    <button class="close" onclick="closePopup()">×</button>
+    <button class="popup-close" onclick="closePopup()">×</button>
 
-    <span class="eyebrow">MDWV STARS</span>
-
-    <h2 id="popupTitle">Coming Soon</h2>
-
-    <p id="popupText">
-      This feature is being prepared.
-    </p>
-
-    <button class="btn primary" onclick="closePopup()">
-      Got it
-    </button>
+    <div id="popupContent"></div>
 
   </div>
 
@@ -888,64 +1382,198 @@ footer{
 
 <script>
 
-const menu = document.getElementById("menu");
-const nav = document.getElementById("nav");
+const popup=document.getElementById("popup");
+const popupContent=document.getElementById("popupContent");
 
-menu.addEventListener("click", () => {
-  nav.classList.toggle("active");
-});
+function toggleMenu(){
 
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    nav.classList.remove("active");
-  });
-});
+  const menu=document.getElementById("mobileMenu");
 
-function showPopup(title,text){
-  document.getElementById("popupTitle").textContent = title;
-  document.getElementById("popupText").textContent = text;
-  document.getElementById("popup").classList.add("active");
+  menu.classList.toggle("open");
+
+}
+
+function searchSite(){
+
+  const input=document.getElementById("siteSearch");
+  const query=input.value.trim().toLowerCase();
+
+  if(!query){
+
+    showPopup(
+      "Search MDWV STARS",
+      "किसी artist या section का नाम लिखकर search करो."
+    );
+
+    return;
+  }
+
+  const artists=[
+    "sanket mhatre",
+    "lohit sharma",
+    "vijay vikram singh",
+    "sachin gole",
+    "sonal kaushal"
+  ];
+
+  const found=artists.find(name=>name.includes(query));
+
+  if(found){
+
+    showPopup(
+      "Artist Found",
+      `MDWV STARS में <b>${found}</b> मिला।`
+    );
+
+  }else{
+
+    showPopup(
+      "No Result",
+      `"${query}" के लिए अभी कोई result नहीं मिला।`
+    );
+
+  }
+
+}
+
+document.getElementById("siteSearch").addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key==="Enter"){
+      searchSite();
+    }
+
+  }
+);
+
+function artistInfo(name){
+
+  const descriptions={
+
+    "Sanket Mhatre":
+    "Hindi voice artist known for voice-over, dubbing and character performances.",
+
+    "Lohit Sharma":
+    "Voice-over and dubbing artist with work across entertainment and anime.",
+
+    "Vijay Vikram Singh":
+    "Narrator, voice artist and speaker known for powerful narration.",
+
+    "Sachin Gole":
+    "Hindi dubbing and voice artist known for film and character voices.",
+
+    "Sonal Kaushal":
+    "Voice artist known for animation, dubbing and memorable Hindi characters."
+
+  };
+
+  showPopup(
+    name,
+    descriptions[name] || "MDWV STARS voice artist."
+  );
+
+}
+
+function comingSoon(){
+
+  showPopup(
+    "MDWV Assistant",
+    "MDWV Assistant जल्द ही यहाँ available होगा. अभी यह section preview mode में है."
+  );
+
+}
+
+function joinMembership(){
+
+  showPopup(
+    "STAR MEMBER",
+    "Membership system अभी setup stage में है. जल्द ही यहाँ पूरा membership experience मिलेगा."
+  );
+
+}
+
+function whatsapp(){
+
+  showPopup(
+    "WhatsApp",
+    "WhatsApp connection यहाँ बाद में add किया जाएगा."
+  );
+
+}
+
+function socialMessage(){
+
+  showPopup(
+    "Instagram",
+    "Social profile connection जल्द ही यहाँ add किया जाएगा."
+  );
+
+}
+
+function showPopup(title,message){
+
+  popupContent.innerHTML=`
+    <h2>${title}</h2>
+    <p>${message}</p>
+  `;
+
+  popup.classList.add("show");
+
 }
 
 function closePopup(){
-  document.getElementById("popup").classList.remove("active");
+
+  popup.classList.remove("show");
+
 }
 
-document.getElementById("popup").addEventListener("click",function(e){
-  if(e.target === this) closePopup();
+popup.addEventListener("click",function(event){
+
+  if(event.target===popup){
+    closePopup();
+  }
+
 });
 
-const search = document.getElementById("search");
+document.addEventListener("keydown",function(event){
 
-search.addEventListener("keydown",function(e){
-
-  if(e.key !== "Enter") return;
-
-  const query = search.value.toLowerCase().trim();
-
-  if(!query) return;
-
-  const sections = {
-    artists:"#artists",
-    artist:"#artists",
-    awards:"#awards",
-    award:"#awards",
-    membership:"#membership",
-    connect:"#connect",
-    assistant:"#ai",
-    ai:"#ai",
-    covers:"#artists"
-  };
-
-  if(sections[query]){
-    document.querySelector(sections[query])
-      .scrollIntoView({behavior:"smooth"});
-  }else{
-    showPopup(
-      "Search",
-      "No matching section found for: " + search.value
-    );
+  if(event.key==="Escape"){
+    closePopup();
   }
+
+});
+
+const cards=document.querySelectorAll(
+  ".artist-card,.award-row,.cover-card,.membership-card"
+);
+
+const observer=new IntersectionObserver(
+  entries=>{
+
+    entries.forEach(entry=>{
+
+      if(entry.isIntersecting){
+
+        entry.target.style.opacity="1";
+        entry.target.style.transform="translateY(0)";
+
+      }
+
+    });
+
+  },
+  {threshold:.1}
+);
+
+cards.forEach(card=>{
+
+  card.style.opacity="0";
+  card.style.transform="translateY(30px)";
+  card.style.transition=
+    "opacity .7s ease, transform .7s ease";
+
+  observer.observe(card);
 
 });
 
