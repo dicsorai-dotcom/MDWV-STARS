@@ -840,89 +840,196 @@ footer p{
     right:-80px;
   }
 }
-
 @media(max-width:600px){
 
   .navbar{
     padding:0 20px;
+    height:70px;
   }
 
-  .hero,.section{
-    padding-left:20px;
-    padding-right:20px;
+  .logo{
+    font-size:17px;
+    letter-spacing:2px;
+  }
+
+  .nav-links{
+    top:70px;
   }
 
   .hero{
-    padding-top:130px;
+    min-height:auto;
+    padding:125px 20px 80px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:55px;
+  }
+
+  .hero-left{
+    width:100%;
+  }
+
+  .eyebrow{
+    font-size:9px;
+    letter-spacing:3px;
   }
 
   .hero h1{
-    font-size:62px;
+    font-size:58px;
+    line-height:.88;
     letter-spacing:-4px;
+  }
+
+  .hero-sub{
+    font-size:16px;
+    margin-top:25px;
   }
 
   .hero-buttons{
     flex-direction:column;
+    width:100%;
   }
 
-  .primary-btn,.secondary-btn{
+  .btn{
+    width:100%;
     text-align:center;
   }
 
-  .section-heading{
-    flex-direction:column;
-    align-items:start;
+  .hero-card{
+    width:230px;
+    height:300px;
+    align-self:center;
   }
 
-  .section-heading h2,.connect h2{
-    font-size:58px;
+  .voice-card strong{
+    font-size:60px;
+  }
+
+  section{
+    padding:85px 20px;
+  }
+
+  .section-top{
+    display:block;
+    margin-bottom:40px;
+  }
+
+  .section-title{
+    font-size:52px;
+    letter-spacing:-3px;
+  }
+
+  .section-desc{
+    margin-top:20px;
+    font-size:14px;
   }
 
   .artists-grid{
     grid-template-columns:1fr;
+    gap:18px;
   }
 
-  .artist-image{
-    height:300px;
+  .artist-card{
+    min-height:390px;
   }
 
-  .ai-preview{
-    margin-left:20px;
-    margin-right:20px;
+  .artist-img{
+    height:250px;
+  }
+
+  .artist-info h3{
+    font-size:23px;
+  }
+
+  .ai-box{
+    min-height:auto;
     padding:40px 25px;
-  }
-
-  .ai-content h2{
-    font-size:60px;
-  }
-
-  .ai-symbol{
-    display:none;
-  }
-
-  .award-row{
-    grid-template-columns:40px 1fr;
-  }
-
-  .award-row strong{
-    display:none;
-  }
-
-  .membership{
-    padding:100px 20px;
-  }
-
-  .membership-inner{
+    flex-direction:column;
+    align-items:flex-start;
     gap:50px;
   }
 
-  .membership h2{
-    font-size:60px;
+  .ai-text h2{
+    font-size:50px;
+    letter-spacing:-3px;
   }
 
-  .footer-bottom{
+  .ai-text p{
+    font-size:14px;
+  }
+
+  .ai-visual{
+    width:220px;
+    height:220px;
+    align-self:center;
+  }
+
+  .award-row{
+    grid-template-columns:35px 1fr 55px;
+    gap:12px;
+    padding:24px 0;
+  }
+
+  .award-name{
+    font-size:17px;
+  }
+
+  .award-year{
+    font-size:11px;
+  }
+
+  .covers-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cover{
+    height:220px;
+  }
+
+  .membership{
+    padding:85px 20px;
+  }
+
+  .membership .section-title{
+    font-size:50px;
+  }
+
+  .member-card{
+    padding:35px 25px;
     flex-direction:column;
-    gap:10px;
+    align-items:flex-start;
+    gap:30px;
+  }
+
+  .member-card h3{
+    font-size:30px;
+  }
+
+  .price{
+    font-size:52px;
+  }
+
+  .connect{
+    text-align:center;
+  }
+
+  .connect .section-title{
+    font-size:55px;
+  }
+
+  .connect-buttons{
+    flex-direction:column;
+    width:100%;
+  }
+
+  .connect-buttons .btn{
+    width:100%;
+  }
+
+  footer{
+    padding:30px 20px;
+    flex-direction:column;
+    gap:12px;
   }
 }
 </style>
