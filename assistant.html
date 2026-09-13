@@ -113,29 +113,7 @@ body{
 .lara{background:#ffb6c9;}
 .milly{background:#ff1493;}
 .ramya{background:#e00000;}
-.pinu{background:#ffd21f;}
-
-
-/* CHATGPT STYLE SIDEBAR CLOSE */
-.close-sidebar{
-  display:none;
-  position:absolute;
-  right:12px;
-  top:12px;
-  width:34px;
-  height:34px;
-  border:1px solid #333;
-  border-radius:10px;
-  background:#151518;
-  color:#fff;
-  font-size:25px;
-  line-height:28px;
-  cursor:pointer;
-}
-
-.close-sidebar:hover{
-  background:#222;
-}
+.pihu{background:#ffd21f;}
 
 /* MAIN */
 .main{
@@ -366,11 +344,6 @@ body{
 
 /* MOBILE */
 @media(max-width:800px){
-  .close-sidebar{
-    display:block;
-  }
-
-
 
   .sidebar{
     position:fixed;
@@ -424,6 +397,52 @@ body{
   .model-grid{
     grid-template-columns:1fr;
   }
+}
+
+/* FINAL INTERACTION FIX */
+button, .new-chat, .side-item, .model, .model-card, .prompt, .menu, .close {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.send {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 20;
+}
+
+.input-area, .input-box, #messageInput {
+  position: relative;
+  z-index: 10;
+}
+
+.model-welcome .model-tag{
+  display:inline-block;
+  margin:12px auto;
+  padding:7px 12px;
+  border:1px solid;
+  border-radius:999px;
+  font-size:11px;
+  letter-spacing:1.5px;
+}
+
+.model-welcome .model-sub{
+  opacity:.78;
+  margin-top:8px;
+}
+
+.close-sidebar{
+  cursor:pointer;
+  pointer-events:auto;
+}
+
+.model-panel{
+  pointer-events:auto;
+}
+
+.model-panel .panel{
+  pointer-events:auto;
 }
 </style>
 </head>
@@ -496,7 +515,7 @@ body{
         MDWV Ramya
       </div>
 
-      <div class="model" onclick="selectModel('MDWV Pinu')">
+      <div class="model" onclick="selectModel('MDWV Pihu')">
         <span class="dot pihu"></span>
         MDWV Pihu
       </div>
@@ -513,7 +532,7 @@ body{
       <div class="menu" onclick="toggleSidebar()">☰</div>
 
       <div>
-        <span id="currentModel">MDWV Assistant</span><span id="aiStatus" style="color:#777;font-size:11px;margin-left:10px;"></span>
+        <span id="currentModel">MDWV Assistant</span>
       </div>
 
       <div>✦</div>
@@ -571,7 +590,7 @@ body{
       onkeydown="handleKey(event)"
     ></textarea>
 
-    <button class="send" onclick="sendMessage()">↑</button>
+    <button type="button" class="send" id="sendButton">↑</button>
 
   </div>
 
@@ -637,10 +656,10 @@ body{
         </div>
       </div>
 
-      <div class="model-card" onclick="selectModel('MDWV Pinu');closeModels()">
+      <div class="model-card" onclick="selectModel('MDWV Pihu');closeModels()">
         <div class="model-name">
-          <span class="dot pinu"></span>
-          MDWV Pinu
+          <span class="dot pihu"></span>
+          MDWV Pihu
         </div>
       </div>
 
@@ -650,93 +669,140 @@ body{
 
 </div>
 
-<script type="module">
-import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
+<script>
+let currentModel = "MDWV Vishuu";
 
-let currentModel = "MDWV Assistant";
-let aiGenerator = null;
-let aiLoading = false;
-let conversation = [];
+const modelData = {
+  "MDWV Vishuu": {
+    color:"#eeeeee",
+    subtitle:"Your creative voice companion.",
+    tag:"VOICE • IDEAS • CREATIVE",
+    intro:"Hey! I'm Vishuu. Let's build ideas, stories and voice concepts together."
+  },
+  "MDWV Vishwas": {
+    color:"#8b0000",
+    subtitle:"The bold voice for powerful conversations.",
+    tag:"BOLD • FOCUSED • DIRECT",
+    intro:"Welcome. I'm Vishwas — let's keep things clear, focused and powerful."
+  },
+  "MDWV Elvin": {
+    color:"#8b5cf6",
+    subtitle:"Your imagination starts here.",
+    tag:"STORY • IMAGINATION • WORLD BUILDING",
+    intro:"Hey! I'm Elvin. Bring me an idea and let's turn it into a world."
+  },
+  "MDWV Junxuan": {
+    color:"#00d9d9",
+    subtitle:"Calm thinking. Sharp ideas.",
+    tag:"LEARN • THINK • CREATE",
+    intro:"Welcome to my space. Let's learn, think and create something meaningful."
+  },
+  "MDWV Lara": {
+    color:"#ffb6c9",
+    subtitle:"A warm space for stories and creativity.",
+    tag:"STORIES • CREATIVITY • VOICE",
+    intro:"Hi! I'm Lara. Tell me what's on your mind and let's create together."
+  },
+  "MDWV Milly": {
+    color:"#ff1493",
+    subtitle:"Energy, creativity and fresh ideas.",
+    tag:"ENERGY • FUN • CREATIVE",
+    intro:"Hey! I'm Milly. Let's bring some energy to your next idea."
+  },
+  "MDWV Ramya": {
+    color:"#e00000",
+    subtitle:"Your space for stories and expression.",
+    tag:"VOICE • STORY • EXPRESSION",
+    intro:"Welcome! I'm Ramya. Let's turn your thoughts into something worth hearing."
+  },
+  "MDWV Pihu": {
+    color:"#ffd21f",
+    subtitle:"Bright ideas for your next creation.",
+    tag:"IDEAS • STORIES • CREATIVITY",
+    intro:"Hey! I'm Pihu. Let's make your next idea brighter and more creative."
+  }
+};
 
+function getModel(){
+  return modelData[currentModel] || modelData["MDWV Vishuu"];
+}
 
 /* SIDEBAR */
 function toggleSidebar(){
-
-  document
-    .getElementById("sidebar")
-    .classList
-    .toggle("open");
-
+  const sidebar = document.getElementById("sidebar");
+  if(sidebar) sidebar.classList.toggle("open");
 }
 
 /* NEW CHAT */
-function newChat(){
+function newChat(model = currentModel){
+  currentModel = model;
+  const data = getModel();
+
+  const current = document.getElementById("currentModel");
+  if(current){
+    current.textContent = currentModel;
+    current.style.color = data.color;
+  }
 
   const chat = document.getElementById("chat");
+  if(!chat) return;
 
   chat.innerHTML = `
-    <div class="welcome" id="welcome">
-
-      <div class="ai-logo">AI</div>
-
-      <h1>Welcome to MDWV Assistant</h1>
-
-      <p>Your voice. Your story. Your world.</p>
-
-      <div class="prompts">
-
-        <div class="prompt" onclick="usePrompt('Explore MDWV Stars')">
-          ✦ Explore MDWV Stars
-        </div>
-
-        <div class="prompt" onclick="usePrompt('Choose your voice model')">
-          ◉ Choose your voice model
-        </div>
-
-        <div class="prompt" onclick="usePrompt('Start an Anime Story')">
-          ◈ Start an Anime Story
-        </div>
-
-        <div class="prompt" onclick="usePrompt('Ask MDWV anything')">
-          ✧ Ask MDWV anything
-        </div>
-
+    <div class="welcome model-welcome" id="welcome">
+      <div class="ai-logo model-head" style="border-color:${data.color};color:${data.color};box-shadow:0 0 35px ${data.color}33;">AI</div>
+      <h1 style="color:${data.color};">Welcome to ${escapeHTML(currentModel)}</h1>
+      <p>${escapeHTML(data.subtitle)}</p>
+      <div class="model-tag" style="color:${data.color};border-color:${data.color}66;">
+        ${escapeHTML(data.tag)}
       </div>
-
+      <p class="model-sub">${escapeHTML(data.intro)}</p>
+      <div class="prompts">
+        <div class="prompt" onclick="usePrompt('Explore MDWV Stars')">✦ Explore MDWV Stars</div>
+        <div class="prompt" onclick="usePrompt('Tell me about yourself')">◉ Tell me about yourself</div>
+        <div class="prompt" onclick="usePrompt('Start an Anime Story')">◈ Start an Anime Story</div>
+        <div class="prompt" onclick="usePrompt('Ask MDWV anything')">✧ Ask MDWV anything</div>
+      </div>
     </div>
   `;
 
+  const input = document.getElementById("messageInput");
+  if(input){
+    input.value = "";
+    input.placeholder = "Message " + currentModel + "...";
+    input.focus();
+  }
+
+  chat.scrollTop = 0;
 }
 
 /* MODEL */
 function selectModel(model){
-
+  if(!modelData[model]) return;
   currentModel = model;
+  newChat(model);
 
-  document.getElementById("currentModel").textContent = model;
+  const sidebar = document.getElementById("sidebar");
+  if(sidebar) sidebar.classList.remove("open");
 
-  addMessage(
-    "system",
-    "Selected model: " + model
-  );
-
+  const panel = document.getElementById("modelPanel");
+  if(panel) panel.classList.remove("open");
 }
 
 /* PROMPT */
 function usePrompt(text){
-
-  document.getElementById("messageInput").value = text;
-
+  const input = document.getElementById("messageInput");
+  if(!input) return;
+  input.value = text;
   sendMessage();
-
 }
 
-/* SEND — BROWSER LOCAL AI */
-async function sendMessage(){
-
+/* SEND */
+function sendMessage(){
   const input = document.getElementById("messageInput");
-  const text = input.value.trim();
+  const chat = document.getElementById("chat");
+  if(!input || !chat) return;
 
+  const text = input.value.trim();
   if(!text) return;
 
   const welcome = document.getElementById("welcome");
@@ -744,133 +810,39 @@ async function sendMessage(){
 
   addMessage("user", text);
   input.value = "";
+  input.focus();
 
-  const loadingId = addLoadingMessage();
+  setTimeout(() => {
+    const lower = text.toLowerCase();
+    let reply = getModel().intro;
 
-  try{
-    if(!aiGenerator){
-      aiLoading = true;
-      updateLoading(loadingId, "AI model पहली बार load हो रहा है…");
-
-      aiGenerator = await pipeline(
-        "text-generation",
-        "onnx-community/Qwen2.5-0.5B-Instruct",
-        {
-          dtype: "q4"
-        }
-      );
-
-      aiLoading = false;
+    if(lower.includes("mdwv")){
+      reply = "MDWV STARS voice artists, dubbing, narration aur creative voice experiences ko ek jagah laane ke liye bana platform hai.";
+    } else if(lower.includes("anime")){
+      reply = "Anime Story Practice mode mein tum characters, scenes aur dialogue ideas ke saath voice practice kar sakte ho.";
+    } else if(lower.includes("hello") || lower.includes("hi") || lower.includes("hey")){
+      reply = "Hey! Main " + currentModel + " hoon. Batao, kya create karna hai?";
+    } else if(lower.includes("yourself") || lower.includes("about you")){
+      reply = getModel().intro + " Mera focus " + getModel().tag.toLowerCase() + " par hai.";
+    } else {
+      reply = "Got it. " + currentModel + " ke saath is idea ko aage build karte hain. " + getModel().intro;
     }
 
-    updateLoading(loadingId, "सोच रहा हूँ…");
-
-    conversation.push({
-      role:"user",
-      content:text
-    });
-
-    const systemPrompt =
-      "You are MDWV Assistant, the helpful AI assistant for MDWV STARS. " +
-      "Answer naturally and concisely. Help users explore MDWV STARS, voice artists, " +
-      "voice-over, dubbing, narration, anime story practice and the website. " +
-      "If asked about registration or membership, tell them to contact the official MDWV WhatsApp. " +
-      "Current selected model is " + currentModel + ".";
-
-    const messages = [
-      {role:"system", content:systemPrompt},
-      ...conversation.slice(-8)
-    ];
-
-    const result = await aiGenerator(messages, {
-      max_new_tokens: 180,
-      temperature: 0.7,
-      do_sample: true
-    });
-
-    let reply = "";
-
-    if(Array.isArray(result) && result[0]){
-      const item = result[0];
-      if(typeof item.generated_text === "string"){
-        reply = item.generated_text;
-      }else if(Array.isArray(item.generated_text)){
-        const last = item.generated_text[item.generated_text.length - 1];
-        reply = last?.content || last?.text || "";
-      }
-    }
-
-    if(!reply){
-      reply = "अभी जवाब generate नहीं हो पाया। एक बार फिर try करो।";
-    }
-
-    conversation.push({
-      role:"assistant",
-      content:reply
-    });
-
-    removeLoading(loadingId);
     addMessage("ai", reply);
-
-  }catch(error){
-
-    console.error(error);
-    aiLoading = false;
-    removeLoading(loadingId);
-
-    addMessage(
-      "ai",
-      "AI model load नहीं हो पाया। पहली बार model download होने में थोड़ा समय लग सकता है। Internet connection check करके फिर try करो।"
-    );
-  }
-}
-
-function addLoadingMessage(){
-
-  const chat = document.getElementById("chat");
-  const message = document.createElement("div");
-  const id = "loading-" + Date.now();
-
-  message.id = id;
-  message.className = "message";
-  message.innerHTML = `
-    <div class="avatar">AI</div>
-    <div class="bubble" id="${id}-text">AI model load हो रहा है…</div>
-  `;
-
-  chat.appendChild(message);
-  chat.scrollTop = chat.scrollHeight;
-
-  return id;
-}
-
-function updateLoading(id,text){
-
-  const el = document.getElementById(id + "-text");
-  if(el) el.textContent = text;
-}
-
-function removeLoading(id){
-
-  const el = document.getElementById(id);
-  if(el) el.remove();
+  }, 450);
 }
 
 /* MESSAGE */
 function addMessage(type, text){
-
   const chat = document.getElementById("chat");
+  if(!chat) return;
 
   const message = document.createElement("div");
-
   message.className = "message";
 
   const avatar =
-    type === "user"
-    ? "YOU"
-    : type === "system"
-    ? "MD"
-    : "AI";
+    type === "user" ? "YOU" :
+    type === "system" ? "MD" : "AI";
 
   message.innerHTML = `
     <div class="avatar">${avatar}</div>
@@ -878,69 +850,81 @@ function addMessage(type, text){
   `;
 
   chat.appendChild(message);
-
   chat.scrollTop = chat.scrollHeight;
-
 }
 
 /* HTML SAFETY */
 function escapeHTML(text){
-
-  return text
+  return String(text)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
 
 /* ENTER */
 function handleKey(event){
-
   if(event.key === "Enter" && !event.shiftKey){
-
     event.preventDefault();
-
     sendMessage();
-
   }
-
 }
 
 /* ANIME MODE */
 function showMode(mode){
-
   if(mode === "anime"){
+    newChat(currentModel);
+    const chat = document.getElementById("chat");
+    if(!chat) return;
 
-    newChat();
-
-    setTimeout(() => {
-
-      addMessage(
-        "ai",
-        "Anime Story Practice Mode तैयार है। कोई character, world या scene बताइए और हम storytelling practice शुरू कर सकते हैं।"
-      );
-
-    },200);
-
+    const welcome = document.getElementById("welcome");
+    if(welcome){
+      const p = welcome.querySelector(".model-sub");
+      if(p) p.textContent = "Anime Story Practice mode — characters, scenes and voice practice.";
+    }
   }
-
 }
 
-/* MODEL PANEL */
+/* MODELS PANEL */
 function openModels(){
-
-  document.getElementById("modelPanel").style.display = "flex";
-
+  const panel = document.getElementById("modelPanel");
+  if(panel) panel.classList.add("open");
 }
 
 function closeModels(){
-
-  document.getElementById("modelPanel").style.display = "none";
-
+  const panel = document.getElementById("modelPanel");
+  if(panel) panel.classList.remove("open");
 }
 
+/* RELIABLE CLICK EVENTS */
+document.addEventListener("DOMContentLoaded", function(){
+  const sendButton = document.getElementById("sendButton");
+  const input = document.getElementById("messageInput");
+
+  if(sendButton){
+    sendButton.addEventListener("click", sendMessage);
+    sendButton.addEventListener("touchend", function(e){
+      e.preventDefault();
+      sendMessage();
+    }, {passive:false});
+  }
+
+  if(input){
+    input.addEventListener("keydown", handleKey);
+  }
+
+  // Make inline onclick controls reliable even after chat HTML is replaced.
+  document.addEventListener("click", function(e){
+    const prompt = e.target.closest(".prompt");
+    if(prompt && !prompt.getAttribute("onclick")){
+      const text = prompt.textContent.trim();
+      if(text) usePrompt(text);
+    }
+  });
+
+  newChat("MDWV Vishuu");
+});
 </script>
 
 </body>
