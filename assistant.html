@@ -115,6 +115,28 @@ body{
 .ramya{background:#e00000;}
 .pinu{background:#ffd21f;}
 
+
+/* CHATGPT STYLE SIDEBAR CLOSE */
+.close-sidebar{
+  display:none;
+  position:absolute;
+  right:12px;
+  top:12px;
+  width:34px;
+  height:34px;
+  border:1px solid #333;
+  border-radius:10px;
+  background:#151518;
+  color:#fff;
+  font-size:25px;
+  line-height:28px;
+  cursor:pointer;
+}
+
+.close-sidebar:hover{
+  background:#222;
+}
+
 /* MAIN */
 .main{
   flex:1;
@@ -344,6 +366,11 @@ body{
 
 /* MOBILE */
 @media(max-width:800px){
+  .close-sidebar{
+    display:block;
+  }
+
+
 
   .sidebar{
     position:fixed;
@@ -469,7 +496,7 @@ body{
         MDWV Ramya
       </div>
 
-      <div class="model" onclick="selectModel('MDWV Pihu')">
+      <div class="model" onclick="selectModel('MDWV Pinu')">
         <span class="dot pihu"></span>
         MDWV Pihu
       </div>
@@ -486,7 +513,7 @@ body{
       <div class="menu" onclick="toggleSidebar()">☰</div>
 
       <div>
-        <span id="currentModel">MDWV Assistant</span>
+        <span id="currentModel">MDWV Assistant</span><span id="aiStatus" style="color:#777;font-size:11px;margin-left:10px;"></span>
       </div>
 
       <div>✦</div>
@@ -623,9 +650,14 @@ body{
 
 </div>
 
-<script>
+<script type="module">
+import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 
 let currentModel = "MDWV Assistant";
+let aiGenerator = null;
+let aiLoading = false;
+let conversation = [];
+
 
 /* SIDEBAR */
 function toggleSidebar(){
@@ -699,51 +731,129 @@ function usePrompt(text){
 
 }
 
-/* SEND */
-function sendMessage(){
+/* SEND — BROWSER LOCAL AI */
+async function sendMessage(){
 
   const input = document.getElementById("messageInput");
-
   const text = input.value.trim();
 
   if(!text) return;
 
   const welcome = document.getElementById("welcome");
-
-  if(welcome){
-    welcome.remove();
-  }
+  if(welcome) welcome.remove();
 
   addMessage("user", text);
-
   input.value = "";
 
-  setTimeout(() => {
+  const loadingId = addLoadingMessage();
 
-    let reply =
-      "मैं MDWV Assistant हूँ। अभी यह interface तैयार है। वास्तविक AI model को बाद में सुरक्षित तरीके से connect किया जा सकता है।";
+  try{
+    if(!aiGenerator){
+      aiLoading = true;
+      updateLoading(loadingId, "AI model पहली बार load हो रहा है…");
 
-    const lower = text.toLowerCase();
+      aiGenerator = await pipeline(
+        "text-generation",
+        "onnx-community/Qwen2.5-0.5B-Instruct",
+        {
+          dtype: "q4"
+        }
+      );
 
-    if(lower.includes("mdwv")){
-      reply =
-        "MDWV STARS voice artists की दुनिया को एक जगह लाने के लिए बनाया गया platform है। आप Artists, Awards, Covers और Membership explore कर सकते हैं।";
+      aiLoading = false;
     }
 
-    if(lower.includes("register") || lower.includes("registration")){
-      reply =
-        "MDWV STARS में registration या membership के लिए official MDWV WhatsApp contact का इस्तेमाल करें।";
+    updateLoading(loadingId, "सोच रहा हूँ…");
+
+    conversation.push({
+      role:"user",
+      content:text
+    });
+
+    const systemPrompt =
+      "You are MDWV Assistant, the helpful AI assistant for MDWV STARS. " +
+      "Answer naturally and concisely. Help users explore MDWV STARS, voice artists, " +
+      "voice-over, dubbing, narration, anime story practice and the website. " +
+      "If asked about registration or membership, tell them to contact the official MDWV WhatsApp. " +
+      "Current selected model is " + currentModel + ".";
+
+    const messages = [
+      {role:"system", content:systemPrompt},
+      ...conversation.slice(-8)
+    ];
+
+    const result = await aiGenerator(messages, {
+      max_new_tokens: 180,
+      temperature: 0.7,
+      do_sample: true
+    });
+
+    let reply = "";
+
+    if(Array.isArray(result) && result[0]){
+      const item = result[0];
+      if(typeof item.generated_text === "string"){
+        reply = item.generated_text;
+      }else if(Array.isArray(item.generated_text)){
+        const last = item.generated_text[item.generated_text.length - 1];
+        reply = last?.content || last?.text || "";
+      }
     }
 
-    if(lower.includes("anime")){
-      reply =
-        "Anime Story Practice mode में आप अपनी voice और storytelling practice के लिए characters और scenes बना सकते हैं।";
+    if(!reply){
+      reply = "अभी जवाब generate नहीं हो पाया। एक बार फिर try करो।";
     }
 
+    conversation.push({
+      role:"assistant",
+      content:reply
+    });
+
+    removeLoading(loadingId);
     addMessage("ai", reply);
 
-  }, 500);
+  }catch(error){
 
+    console.error(error);
+    aiLoading = false;
+    removeLoading(loadingId);
+
+    addMessage(
+      "ai",
+      "AI model load नहीं हो पाया। पहली बार model download होने में थोड़ा समय लग सकता है। Internet connection check करके फिर try करो।"
+    );
+  }
+}
+
+function addLoadingMessage(){
+
+  const chat = document.getElementById("chat");
+  const message = document.createElement("div");
+  const id = "loading-" + Date.now();
+
+  message.id = id;
+  message.className = "message";
+  message.innerHTML = `
+    <div class="avatar">AI</div>
+    <div class="bubble" id="${id}-text">AI model load हो रहा है…</div>
+  `;
+
+  chat.appendChild(message);
+  chat.scrollTop = chat.scrollHeight;
+
+  return id;
+}
+
+function updateLoading(id,text){
+
+  const el = document.getElementById(id + "-text");
+  if(el) el.textContent = text;
+}
+
+function removeLoading(id){
+
+  const el = document.getElementById(id);
+  if(el) el.remove();
 }
 
 /* MESSAGE */
